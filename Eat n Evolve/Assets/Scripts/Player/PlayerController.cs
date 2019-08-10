@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : Character
 {
+    // TODO: Add RandomCharacterTraitSelection() for when you kill the enemy enough times
+
+    private int health = 100;
     // character top down movement
     private Vector3 inputMovement;
     private Vector3 startPosition;
@@ -28,16 +31,18 @@ public class PlayerController : Character
     }
 
     // Start is called before the first frame update
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         Initialize();
         MyTransform = GetComponent<Transform>();
         MyRigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Put anything non physics related that needs updating here
-    private void Update()
+    public override void Update()
     {
+        base.Update();
         HandleInput();
     }
 
