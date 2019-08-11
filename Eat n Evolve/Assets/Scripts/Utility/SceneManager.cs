@@ -6,7 +6,7 @@ public class SceneManager : MonoBehaviour
 {
 
     // Stores the quadrants for random generation
-    [SerializeField] private List<Transform> quadrants;
+    [SerializeField] private List<GameObject> quadrants;
     [SerializeField] private List<Transform> playerSpawns;
     [SerializeField] private List<GameObject> zones;
     // Manages the player's evolutionPoints
@@ -27,6 +27,7 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
         RandomizePlayerSpawn();
+        RandomizeZoneLocations();
     }
 
     // Update is called once per frame
@@ -38,6 +39,28 @@ public class SceneManager : MonoBehaviour
     {
         int randomSpawn = Random.Range(0, playerSpawns.Capacity);
         PlayerController.Instance.StartPosition = playerSpawns[randomSpawn];
+    }
+
+    public void RandomizeZoneLocations()
+    {
+        int n = quadrants.Count;
+        System.Random rng = new System.Random();
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            GameObject value = quadrants[k];
+            quadrants[k] = quadrants[n];
+            quadrants[n] = value;
+        }
+
+
+        for (int i = 0; i < quadrants.Count; i++)
+        {
+            zones[i].transform.parent = quadrants[i].transform;
+        }
+        
+
     }
 
 
