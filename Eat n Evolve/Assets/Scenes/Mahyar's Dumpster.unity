@@ -398,7 +398,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dcc87563925bc644837df2cd9fd27e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coreLevelMultiplier: 2
+  damage: 5
   movementSpeed: 5
+  epRequired: 10
+  claws: 0
+  clawsLevel: 0
+  horns: 0
+  hornsLevel: 0
+  spike: 0
+  spikeLevel: 0
+  scenty: 0
+  scentyLevel: 0
+  fishy: 0
+  fishyLevel: 0
+  stinky: 0
+  stinkyLevel: 0
+  sneaky: 0
+  sneakyLevel: 0
+  evolutionPoints:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  healthStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  clawsStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  hornsStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  spikeStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  scentyStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  fishyStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  stinkyStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
+  sneakyStat:
+    bar: {fileID: 0}
+    maxStatValue: 0
+    currentStatValue: 0
 --- !u!50 &1996909425
 Rigidbody2D:
   serializedVersion: 4

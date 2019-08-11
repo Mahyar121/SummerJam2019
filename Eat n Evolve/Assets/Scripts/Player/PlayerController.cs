@@ -6,7 +6,17 @@ public class PlayerController : Character
 {
     // TODO: Add RandomCharacterTraitSelection() for when you kill the enemy enough times
 
-    private int health = 100;
+    // Player Attributes
+    [SerializeField] private Stat evolutionPoints;
+    [SerializeField] private Stat healthStat;
+    [SerializeField] private Stat clawsStat;
+    [SerializeField] private Stat hornsStat;
+    [SerializeField] private Stat spikeStat;
+    [SerializeField] private Stat scentyStat;
+    [SerializeField] private Stat fishyStat;
+    [SerializeField] private Stat stinkyStat;
+    [SerializeField] private Stat sneakyStat;
+
     // character top down movement
     private Vector3 inputMovement;
     private Vector3 startPosition;
@@ -18,6 +28,21 @@ public class PlayerController : Character
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
+
+    public int Claws { get { return claws; }  set { claws = value; } }
+    public int ClawsLevel { get { return clawsLevel; } set { clawsLevel = value; } }
+    public int Horns { get { return horns; } set { horns = value; } }
+    public int HornsLevel { get { return hornsLevel; } set { hornsLevel = value; } }
+    public int Spike { get { return spike; } set { spike = value; } }
+    public int SpikeLevel { get { return spikeLevel; } set { spikeLevel = value; } }
+    public int Scenty { get { return scenty; } set { scenty = value; } }
+    public int ScentyLevel { get { return scentyLevel; } set { scentyLevel = value; } }
+    public int Fishy { get { return fishy; } set { fishy = value; } }
+    public int FishyLevel { get { return fishyLevel; } set { fishyLevel = value; } }
+    public int Stinky { get { return stinky; } set { stinky = value; } }
+    public int StinkyLevel { get { return stinkyLevel; } set { stinkyLevel = value; } }
+    public int Sneaky { get { return sneaky; } set { sneaky = value; } }
+    public int SneakyLevel { get { return sneakyLevel; } set { sneakyLevel = value; } }
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
     private static PlayerController instance;

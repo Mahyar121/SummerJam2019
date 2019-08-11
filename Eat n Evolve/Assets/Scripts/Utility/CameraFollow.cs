@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private float xMin, xMax, yMin, yMax;
+    [SerializeField] private float xMin = -100f, xMax = 100f, yMin = -100f, yMax = 100f;
     private Transform target;
     public Transform Target { get { return target; } set { target = value; } }
 

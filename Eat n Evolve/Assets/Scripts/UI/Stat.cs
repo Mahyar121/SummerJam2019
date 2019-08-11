@@ -7,19 +7,19 @@ using UnityEngine;
 public class Stat
 {
     [SerializeField] private BarController bar;
-    [SerializeField] private float maxHp;
-    [SerializeField] private float currentHp;
+    [SerializeField] private float maxStatValue;
+    [SerializeField] private float currentStatValue;
 
     public float CurrentHp
     {
         get
         {
-            return currentHp;
+            return currentStatValue;
         }
         set
         {
-            this.currentHp = Mathf.Clamp(value, 0, MaxHp);
-            bar.Value = currentHp;
+            this.currentStatValue = Mathf.Clamp(value, 0, MaxHp);
+            bar.Value = currentStatValue;
         }
     }
 
@@ -27,18 +27,18 @@ public class Stat
     {
         get
         {
-            return maxHp;
+            return maxStatValue;
         }
         set
         {
-            this.maxHp = value;
-            bar.MaxValue = maxHp;
+            this.maxStatValue = value;
+            bar.MaxValue = maxStatValue;
         }
     }
 
     public void Initialize()
     {
-        this.MaxHp = maxHp;
-        this.CurrentHp = currentHp;
+        this.MaxHp = maxStatValue;
+        this.CurrentHp = currentStatValue;
     }
 }
