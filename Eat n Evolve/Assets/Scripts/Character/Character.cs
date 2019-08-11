@@ -10,7 +10,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float damage = 5f;
     [SerializeField] protected float movementSpeed = 5f;
     [SerializeField] protected float health = 100f;
-    [SerializeField] protected float epRequired = 10f;
+    [SerializeField] protected float epRequired = 100f;
     [SerializeField] protected float claws = 0;
     [SerializeField] protected float clawsLevel = 0;
     [SerializeField] protected float horns = 0;
