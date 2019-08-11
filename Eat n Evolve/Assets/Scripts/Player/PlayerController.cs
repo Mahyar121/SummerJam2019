@@ -55,6 +55,7 @@ public class PlayerController : Character
     {
         Initialize();
         base.Start();
+        MyAnimator = GetComponent<Animator>();
         MyTransform = GetComponent<Transform>();
         MyRigidBody2D = GetComponent<Rigidbody2D>();
     }
@@ -74,6 +75,8 @@ public class PlayerController : Character
 
     public override void Initialize()
     {
+
+        
         // needs barcontroller added otherwise it dies
         healthStat.Initialize();
         InitializeStat(Instance.clawsStat, Instance.Claws);
@@ -94,6 +97,17 @@ public class PlayerController : Character
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         MyRigidBody2D.velocity = new Vector2(horizontal * movementSpeed, vertical * movementSpeed);
+        MyAnimator.SetFloat("SpeedX", horizontal);
+        MyAnimator.SetFloat("SpeedY", vertical);
+
+        if (MyAnimator.GetFloat("SpeedX") == 0 && MyAnimator.GetFloat("SpeedY") == 0)
+        {
+            MyAnimator.SetBool("IsIdle", true);
+        }
+        else
+        {
+            MyAnimator.SetBool("IsIdle", false);
+        }
     }
 
     private void HandleInput()
