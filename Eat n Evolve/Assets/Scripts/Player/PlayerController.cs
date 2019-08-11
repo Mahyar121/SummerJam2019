@@ -7,7 +7,6 @@ public class PlayerController : Character
     // TODO: Add RandomCharacterTraitSelection() for when you kill the enemy enough times
 
     // Player Attributes
-    [SerializeField] private Stat evolutionPoints;
     [SerializeField] private Stat healthStat;
     [SerializeField] private Stat clawsStat;
     [SerializeField] private Stat hornsStat;
@@ -19,16 +18,11 @@ public class PlayerController : Character
 
     // character top down movement
     private Vector3 inputMovement;
-    private Vector3 startPosition;
-    // Player properties
-    public Animator MyAnimator { get; set; }
-    public Rigidbody2D MyRigidBody2D { get; set; }
-    public Transform MyTransform { get; set; }
 
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
-
+    public Transform StartPosition { get; set; }
     public int Claws { get { return claws; }  set { claws = value; } }
     public int ClawsLevel { get { return clawsLevel; } set { clawsLevel = value; } }
     public int Horns { get { return horns; } set { horns = value; } }
@@ -79,6 +73,18 @@ public class PlayerController : Character
 
     public override void Initialize()
     {
+        // Ctrl+K+C to comment
+        // Ctrl+K+U to uncomment
+        // needs barcontroller added otherwise it dies
+        //healthStat.Initialize();
+        //clawsStat.Initialize();
+        //hornsStat.Initialize();
+        //spikeStat.Initialize();
+        //scentyStat.Initialize();
+        //fishyStat.Initialize();
+        //stinkyStat.Initialize();
+        //sneakyStat.Initialize();
+        MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
     }
 
@@ -123,6 +129,7 @@ public class PlayerController : Character
         
     }
 
+    // when the player dies
     public override void Death()
     {
         Initialize();
