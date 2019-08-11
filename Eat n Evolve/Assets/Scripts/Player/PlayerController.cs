@@ -164,4 +164,43 @@ public class PlayerController : Character
         }
       
     }
+
+    private void PlayerTraitLevelerHandler()
+    {
+        if (Instance.Claws >= epRequired)
+        {
+            Instance.Claws = 0;
+            Instance.ClawsLevel++;
+        }
+        if (Instance.Horns >= epRequired)
+        {
+            Instance.Horns = 0;
+            Instance.HornsLevel++;
+        }
+        if (Instance.Spike >= epRequired)
+        {
+            Instance.Spike = 0;
+            Instance.SpikeLevel++;
+        }
+        if (Instance.Scenty >= epRequired)
+        {
+            Instance.Scenty = 0;
+            Instance.ScentyLevel++;
+        }
+        if (Instance.Fishy >= epRequired)
+        {
+            Instance.Fishy = 0;
+            Instance.FishyLevel++;
+        }
+        if (Instance.Stinky >= epRequired)
+        {
+            Instance.Stinky = 0;
+            Instance.StinkyLevel++;
+        }
+        if (Instance.Sneaky >= epRequired)
+        {
+            Instance.Sneaky = 0;
+            Instance.SneakyLevel++;
+        }
+    }
 }
