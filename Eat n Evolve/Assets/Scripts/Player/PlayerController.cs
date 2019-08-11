@@ -7,8 +7,8 @@ public class PlayerController : Character
     // TODO: Add RandomCharacterTraitSelection() for when you kill the enemy enough times
 
     // Player Attributes
-    [SerializeField] private Stat healthStat;
-    [SerializeField] private Stat clawsStat;
+    [SerializeField] private HealthStat healthStat;
+    [SerializeField] public Stat clawsStat;
     [SerializeField] private Stat hornsStat;
     [SerializeField] private Stat spikeStat;
     [SerializeField] private Stat scentyStat;
@@ -53,17 +53,17 @@ public class PlayerController : Character
     // Start is called before the first frame update
     public override void Start()
     {
-        base.Start();
         Initialize();
+        base.Start();
         MyTransform = GetComponent<Transform>();
         MyRigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Put anything non physics related that needs updating here
-    public override void Update()
+    private void Update()
     {
-        base.Update();
         HandleInput();
+        PlayerTraitLevelerHandler();
     }
 
     // Put anything physics related that needs updating here
@@ -75,14 +75,14 @@ public class PlayerController : Character
     public override void Initialize()
     {
         // needs barcontroller added otherwise it dies
-        healthStat.Initialize(Instance.Health, epRequired);
-        clawsStat.Initialize(Instance.Claws, epRequired);
-        hornsStat.Initialize(Instance.Horns, epRequired);
-        spikeStat.Initialize(Instance.Spike, epRequired);
-        scentyStat.Initialize(Instance.Scenty, epRequired);
-        fishyStat.Initialize(Instance.Fishy, epRequired);
-        stinkyStat.Initialize(Instance.Stinky, epRequired);
-        sneakyStat.Initialize(Instance.Sneaky, epRequired);
+        healthStat.Initialize();
+        InitializeStat(Instance.clawsStat, Instance.Claws);
+        InitializeStat(Instance.hornsStat, Instance.Horns);
+        InitializeStat(Instance.spikeStat, Instance.Spike);
+        InitializeStat(Instance.scentyStat, Instance.Scenty);
+        InitializeStat(Instance.fishyStat, Instance.Fishy);
+        InitializeStat(Instance.stinkyStat, Instance.Stinky);
+        InitializeStat(Instance.sneakyStat, Instance.Sneaky);
         MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
 
@@ -119,11 +119,21 @@ public class PlayerController : Character
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            clawsStat.CurrentStatValue += 10;
+            if (Instance.ClawsLevel < 3)
+            {
+                Debug.Log("Before Claw Value: " + clawsStat.CurrentStatValue);
+                Instance.Claws += 10f;
+                Instance.clawsStat.CurrentStatValue = Instance.Claws;
+                Debug.Log("After Claw Value: " + clawsStat.CurrentStatValue);
+            }
+
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
-            hornsStat.CurrentStatValue += 10;
+            if (Instance.HornsLevel < 3)
+            {
+                hornsStat.CurrentStatValue += 10;
+            }
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -147,7 +157,11 @@ public class PlayerController : Character
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            healthStat.CurrentStatValue -= 10;
+            if (healthStat.CurrentHp > 0)
+            {
+                health -= 10;
+                healthStat.CurrentHp = health;
+            }
         }
     }
 
@@ -164,7 +178,7 @@ public class PlayerController : Character
     // when the player dies
     public override void Death()
     {
-        Initialize();
+        //Initialize();
     }
 
     // Randomly selects a character trait for the player
@@ -199,40 +213,60 @@ public class PlayerController : Character
 
     private void PlayerTraitLevelerHandler()
     {
-        if (Instance.Claws >= epRequired)
+        if (Instance.Claws >= epRequired && Instance.ClawsLevel != 3)
         {
             Instance.Claws = 0;
+            InitializeStat(Instance.clawsStat, Instance.Claws);
             Instance.ClawsLevel++;
+            UpdateCharacterStats();
         }
-        if (Instance.Horns >= epRequired)
+        if (Instance.Horns >= epRequired && Instance.HornsLevel != 3)
         {
             Instance.Horns = 0;
+            InitializeStat(Instance.hornsStat, Instance.Horns);
             Instance.HornsLevel++;
+            UpdateCharacterStats();
         }
-        if (Instance.Spike >= epRequired)
+        if (Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
         {
             Instance.Spike = 0;
+            InitializeStat(Instance.spikeStat, Instance.Spike);
             Instance.SpikeLevel++;
+            UpdateCharacterStats();
         }
-        if (Instance.Scenty >= epRequired)
+        if (Instance.Scenty >= epRequired && Instance.ScentyLevel !=3)
         {
             Instance.Scenty = 0;
+            InitializeStat(Instance.scentyStat, Instance.Scenty);
             Instance.ScentyLevel++;
+            UpdateCharacterStats();
         }
-        if (Instance.Fishy >= epRequired)
+        if (Instance.Fishy >= epRequired && Instance.FishyLevel !=3)
         {
             Instance.Fishy = 0;
+            InitializeStat(Instance.fishyStat, Instance.Fishy);
             Instance.FishyLevel++;
+            UpdateCharacterStats();
         }
-        if (Instance.Stinky >= epRequired)
+        if (Instance.Stinky >= epRequired && Instance.StinkyLevel !=3)
         {
             Instance.Stinky = 0;
+            InitializeStat(Instance.stinkyStat, Instance.Stinky);
             Instance.StinkyLevel++;
+            UpdateCharacterStats();
         }
-        if (Instance.Sneaky >= epRequired)
+        if (Instance.Sneaky >= epRequired && Instance.SneakyLevel !=3)
         {
             Instance.Sneaky = 0;
+            InitializeStat(Instance.sneakyStat, Instance.Sneaky);
             Instance.SneakyLevel++;
+            UpdateCharacterStats();
         }
+    }
+
+    private void InitializeStat(Stat stat, float currentStat)
+    {
+        stat.CurrentStatValue = currentStat;
+        stat.MaxStatValue = epRequired;
     }
 }

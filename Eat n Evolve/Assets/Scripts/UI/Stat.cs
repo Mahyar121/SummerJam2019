@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Stat
 {
-    [SerializeField] private BarController bar;
+    [SerializeField] public BarController bar;
     private float maxStatValue;
     private float currentStatValue;
 
@@ -18,7 +18,7 @@ public class Stat
         }
         set
         {
-            currentStatValue = Mathf.Clamp(value, 0, MaxStatValue);
+            currentStatValue = value;
             bar.Value = currentStatValue;
         }
     }
@@ -31,15 +31,9 @@ public class Stat
         }
         set
         {
-            this.maxStatValue = value;
+            maxStatValue = value;
             bar.MaxValue = maxStatValue;
         }
-    }
-
-    public void Initialize(float currentStat, float maxStat)
-    {
-        MaxStatValue = currentStat;
-        CurrentStatValue = maxStat;
     }
 
 }
