@@ -119,7 +119,9 @@ public class PlayerController : Character
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            Debug.Log("Before Claw Value: " + clawsStat.CurrentStatValue);
             clawsStat.CurrentStatValue += 10;
+            Debug.Log("After Claw Value: " + clawsStat.CurrentStatValue);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
