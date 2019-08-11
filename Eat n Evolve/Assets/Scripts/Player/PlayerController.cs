@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : Character
 {
-    // TODO: Add RandomCharacterTraitSelection() for when you kill the enemy enough times
 
     // Player Attributes
     [SerializeField] private HealthStat healthStat;
@@ -18,7 +17,6 @@ public class PlayerController : Character
 
     // character top down movement
     private Vector3 inputMovement;
-
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
@@ -55,10 +53,14 @@ public class PlayerController : Character
     {
         Initialize();
         base.Start();
+        GetComponentInChildren<EdgeCollider2D>().enabled = false;
         MyAnimator = GetComponent<Animator>();
         MyTransform = GetComponent<Transform>();
         MyRigidBody2D = GetComponent<Rigidbody2D>();
+        StartPosition = GetComponent<Transform>();
+        StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
     }
+
 
     // Put anything non physics related that needs updating here
     private void Update()
@@ -75,9 +77,6 @@ public class PlayerController : Character
 
     public override void Initialize()
     {
-
-        
-        // needs barcontroller added otherwise it dies
         healthStat.Initialize();
         InitializeStat(Instance.clawsStat, Instance.Claws);
         InitializeStat(Instance.hornsStat, Instance.Horns);
@@ -88,7 +87,6 @@ public class PlayerController : Character
         InitializeStat(Instance.sneakyStat, Instance.Sneaky);
         MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
-
     }
 
     // Will handle the top down movement of the player
@@ -108,16 +106,20 @@ public class PlayerController : Character
         {
             MyAnimator.SetBool("IsIdle", false);
         }
+
+
     }
 
     private void HandleInput()
     {
-        // This is the attack
+        // Player presses the attack button
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("Hello");
             // if the player has claws do the claws animation
             if (Instance.HasClaws)
             {
+                GetComponentInChildren<ParticleSystem>().Play();
                 Debug.Log("Striked with claws!");
             }
             // if player has horns do the horns animation
@@ -131,51 +133,40 @@ public class PlayerController : Character
                 Debug.Log("Striked with spikes!");
             }
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            if (Instance.ClawsLevel < 3)
-            {
-                Debug.Log("Before Claw Value: " + clawsStat.CurrentStatValue);
-                Instance.Claws += 10f;
-                Instance.clawsStat.CurrentStatValue = Instance.Claws;
-                Debug.Log("After Claw Value: " + clawsStat.CurrentStatValue);
-            }
+            MyAnimator.SetBool("FacingNorth", true);
+            MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("IsIdle", false);
 
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            if (Instance.HornsLevel < 3)
-            {
-                hornsStat.CurrentStatValue += 10;
-            }
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", true);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("IsIdle", false);
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            spikeStat.CurrentStatValue += 10;
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingSouth", true);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("IsIdle", false);
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            scentyStat.CurrentStatValue += 10;
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            fishyStat.CurrentStatValue += 10;
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            stinkyStat.CurrentStatValue += 10;
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            sneakyStat.CurrentStatValue += 10;
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (healthStat.CurrentHp > 0)
-            {
-                health -= 10;
-                healthStat.CurrentHp = health;
-            }
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingEast", true);
+            MyAnimator.SetBool("IsIdle", false);
         }
     }
 

@@ -23,6 +23,8 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,11 @@ public class SceneManager : MonoBehaviour
         RandomizeZoneLocations();
     }
 
-    public void RandomizePlayerSpawn()
+    public Transform RandomizePlayerSpawn()
     {
         int randomSpawn = Random.Range(0, playerSpawns.Count);
-        PlayerController.Instance.StartPosition.position = playerSpawns[randomSpawn].position;
+        return playerSpawns[randomSpawn];
+
     }
 
     public void RandomizeZoneLocations()
