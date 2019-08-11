@@ -30,15 +30,10 @@ public class SceneManager : MonoBehaviour
         RandomizeZoneLocations();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void RandomizePlayerSpawn()
     {
-        int randomSpawn = Random.Range(0, playerSpawns.Capacity);
-        PlayerController.Instance.StartPosition = playerSpawns[randomSpawn];
+        int randomSpawn = Random.Range(0, playerSpawns.Count);
+        PlayerController.Instance.StartPosition.position = playerSpawns[randomSpawn].position;
     }
 
     public void RandomizeZoneLocations()
