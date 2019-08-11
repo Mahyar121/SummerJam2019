@@ -7,20 +7,11 @@ public class BarController : MonoBehaviour
 {
     [SerializeField] private float lerpSpeed; // the rate the hp bar drops or increases
     [SerializeField] private Image image;
-    [SerializeField] private Text text; // Health : 100
 
     private float fillAmount;
 
     public float MaxValue { get; set; }
-    public float Value
-    {
-        set
-        {
-            string[] temp = text.text.Split(':'); // breaks up the Health and 100 from Health : 100
-            text.text = temp[0] + ": " + value;
-            fillAmount = Map(value, 0, MaxValue, 0, 1);
-        }
-    }
+    public float Value { set { fillAmount = Map(value, 0, MaxValue, 0, 1); } }
 
     private void HandleBar()
     {
