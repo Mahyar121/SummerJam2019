@@ -25,11 +25,25 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected int sneaky = 0;
     [SerializeField] protected int sneakyLevel = 0;
 
+    public Animator MyAnimator { get; set; }
+    public Rigidbody2D MyRigidBody2D { get; set; }
+    public Transform MyTransform { get; set; }
+    public SpriteRenderer MySpriteRender { get; set; }
+    public BoxCollider2D MyBoxColliderTrigger2D { get; set; }
+    public BoxCollider2D MyBoxCollider2D { get; set; }
     public abstract void Death();
     public abstract void Initialize();
 
     public virtual void Start()
     {
+        MyAnimator = gameObject.AddComponent<Animator>() as Animator;
+        MyRigidBody2D = gameObject.AddComponent<Rigidbody2D>() as Rigidbody2D;
+        MyRigidBody2D.bodyType = RigidbodyType2D.Kinematic;
+        MySpriteRender = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
+        MyBoxColliderTrigger2D = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
+        MyBoxColliderTrigger2D.isTrigger = true;
+        MyBoxCollider2D = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
+        MyBoxCollider2D.enabled = true;
         UpdateCharacterStats();
     }
 
