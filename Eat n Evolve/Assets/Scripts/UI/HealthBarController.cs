@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarController : MonoBehaviour
+public class HealthBarController : MonoBehaviour
 {
     [SerializeField] private float lerpSpeed; // the rate the hp bar drops or increases
     [SerializeField] private Image image;
+
 
     private float fillAmount;
 
@@ -18,10 +19,7 @@ public class BarController : MonoBehaviour
             Debug.Log("MaxValue:" + MaxValue);
             Debug.Log("Before fillAmount: " + fillAmount);
             Debug.Log("Value:" + value);
-            if (MaxValue != 0)
-            {
-                fillAmount = Map(value, 0, MaxValue, 0, 1);
-            }
+            fillAmount = Map(value, 0, MaxValue, 0, 1);
             Debug.Log("After fillAmount: " + fillAmount);
         }
     }

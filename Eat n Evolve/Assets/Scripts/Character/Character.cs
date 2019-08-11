@@ -40,12 +40,7 @@ public abstract class Character : MonoBehaviour
         UpdateCharacterStats();
     }
 
-    public virtual void Update()
-    {
-        UpdateCharacterStats();
-    }
-
-    private void UpdateCharacterStats()
+    public virtual void UpdateCharacterStats()
     {
         if (clawsLevel != 0)
         {
