@@ -7,8 +7,8 @@ using UnityEngine;
 public class Stat
 {
     [SerializeField] private BarController bar;
-    [SerializeField] private float maxStatValue;
-    [SerializeField] private float currentStatValue;
+    private float maxStatValue;
+    private float currentStatValue;
 
     public float CurrentStatValue
     {
@@ -18,7 +18,7 @@ public class Stat
         }
         set
         {
-            this.currentStatValue = Mathf.Clamp(value, 0, MaxStatValue);
+            currentStatValue = Mathf.Clamp(value, 0, MaxStatValue);
             bar.Value = currentStatValue;
         }
     }
@@ -36,9 +36,10 @@ public class Stat
         }
     }
 
-    public void Initialize()
+    public void Initialize(float currentStat, float maxStat)
     {
-        this.MaxStatValue = maxStatValue;
-        this.CurrentStatValue = currentStatValue;
+        MaxStatValue = currentStat;
+        CurrentStatValue = maxStat;
     }
+
 }

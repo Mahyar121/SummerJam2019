@@ -23,20 +23,21 @@ public class PlayerController : Character
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
     public Transform StartPosition { get; set; }
-    public int Claws { get { return claws; }  set { claws = value; } }
-    public int ClawsLevel { get { return clawsLevel; } set { clawsLevel = value; } }
-    public int Horns { get { return horns; } set { horns = value; } }
-    public int HornsLevel { get { return hornsLevel; } set { hornsLevel = value; } }
-    public int Spike { get { return spike; } set { spike = value; } }
-    public int SpikeLevel { get { return spikeLevel; } set { spikeLevel = value; } }
-    public int Scenty { get { return scenty; } set { scenty = value; } }
-    public int ScentyLevel { get { return scentyLevel; } set { scentyLevel = value; } }
-    public int Fishy { get { return fishy; } set { fishy = value; } }
-    public int FishyLevel { get { return fishyLevel; } set { fishyLevel = value; } }
-    public int Stinky { get { return stinky; } set { stinky = value; } }
-    public int StinkyLevel { get { return stinkyLevel; } set { stinkyLevel = value; } }
-    public int Sneaky { get { return sneaky; } set { sneaky = value; } }
-    public int SneakyLevel { get { return sneakyLevel; } set { sneakyLevel = value; } }
+    public float Health { get { return health; } set { health = value; } }
+    public float Claws { get { return claws; }  set { claws = value; } }
+    public float ClawsLevel { get { return clawsLevel; } set { clawsLevel = value; } }
+    public float Horns { get { return horns; } set { horns = value; } }
+    public float HornsLevel { get { return hornsLevel; } set { hornsLevel = value; } }
+    public float Spike { get { return spike; } set { spike = value; } }
+    public float SpikeLevel { get { return spikeLevel; } set { spikeLevel = value; } }
+    public float Scenty { get { return scenty; } set { scenty = value; } }
+    public float ScentyLevel { get { return scentyLevel; } set { scentyLevel = value; } }
+    public float Fishy { get { return fishy; } set { fishy = value; } }
+    public float FishyLevel { get { return fishyLevel; } set { fishyLevel = value; } }
+    public float Stinky { get { return stinky; } set { stinky = value; } }
+    public float StinkyLevel { get { return stinkyLevel; } set { stinkyLevel = value; } }
+    public float Sneaky { get { return sneaky; } set { sneaky = value; } }
+    public float SneakyLevel { get { return sneakyLevel; } set { sneakyLevel = value; } }
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
     private static PlayerController instance;
@@ -74,16 +75,17 @@ public class PlayerController : Character
     public override void Initialize()
     {
         // needs barcontroller added otherwise it dies
-        healthStat.Initialize();
-        clawsStat.Initialize();
-        hornsStat.Initialize();
-        spikeStat.Initialize();
-        scentyStat.Initialize();
-        fishyStat.Initialize();
-        stinkyStat.Initialize();
-        sneakyStat.Initialize();
+        healthStat.Initialize(Instance.Health, epRequired);
+        clawsStat.Initialize(Instance.Claws, epRequired);
+        hornsStat.Initialize(Instance.Horns, epRequired);
+        spikeStat.Initialize(Instance.Spike, epRequired);
+        scentyStat.Initialize(Instance.Scenty, epRequired);
+        fishyStat.Initialize(Instance.Fishy, epRequired);
+        stinkyStat.Initialize(Instance.Stinky, epRequired);
+        sneakyStat.Initialize(Instance.Sneaky, epRequired);
         MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
+
     }
 
     // Will handle the top down movement of the player

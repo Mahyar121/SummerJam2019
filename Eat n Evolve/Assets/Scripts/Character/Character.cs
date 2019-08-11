@@ -6,24 +6,25 @@ public abstract class Character : MonoBehaviour
 {
 
     // Universal Character stats
-    [SerializeField] protected int coreLevelMultiplier = 2;
-    [SerializeField] protected int damage = 5;
+    [SerializeField] protected float coreLevelMultiplier = 2f;
+    [SerializeField] protected float damage = 5f;
     [SerializeField] protected float movementSpeed = 5f;
-    [SerializeField] protected int epRequired = 10;
-    [SerializeField] protected int claws = 0;
-    [SerializeField] protected int clawsLevel = 0;
-    [SerializeField] protected int horns = 0;
-    [SerializeField] protected int hornsLevel = 0;
-    [SerializeField] protected int spike = 0;
-    [SerializeField] protected int spikeLevel = 0;
-    [SerializeField] protected int scenty = 0;
-    [SerializeField] protected int scentyLevel = 0;
-    [SerializeField] protected int fishy = 0;
-    [SerializeField] protected int fishyLevel = 0;
-    [SerializeField] protected int stinky = 0;
-    [SerializeField] protected int stinkyLevel = 0;
-    [SerializeField] protected int sneaky = 0;
-    [SerializeField] protected int sneakyLevel = 0;
+    [SerializeField] protected float health = 100f;
+    [SerializeField] protected float epRequired = 10f;
+    [SerializeField] protected float claws = 0;
+    [SerializeField] protected float clawsLevel = 0;
+    [SerializeField] protected float horns = 0;
+    [SerializeField] protected float hornsLevel = 0;
+    [SerializeField] protected float spike = 0;
+    [SerializeField] protected float spikeLevel = 0;
+    [SerializeField] protected float scenty = 0;
+    [SerializeField] protected float scentyLevel = 0;
+    [SerializeField] protected float fishy = 0;
+    [SerializeField] protected float fishyLevel = 0;
+    [SerializeField] protected float stinky = 0;
+    [SerializeField] protected float stinkyLevel = 0;
+    [SerializeField] protected float sneaky = 0;
+    [SerializeField] protected float sneakyLevel = 0;
 
     public Animator MyAnimator { get; set; }
     public Rigidbody2D MyRigidBody2D { get; set; }
