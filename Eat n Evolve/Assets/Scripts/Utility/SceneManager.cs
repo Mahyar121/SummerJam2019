@@ -57,7 +57,7 @@ public class SceneManager : MonoBehaviour
 
         for (int i = 0; i < quadrants.Count; i++)
         {
-            zones[i].transform.parent = quadrants[i].transform;
+            zones[i].transform.position = quadrants[i].transform.position;
         }
         
 
