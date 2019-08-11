@@ -36,14 +36,6 @@ public abstract class Character : MonoBehaviour
 
     public virtual void Start()
     {
-        MyAnimator = gameObject.AddComponent<Animator>() as Animator;
-        MyRigidBody2D = gameObject.AddComponent<Rigidbody2D>() as Rigidbody2D;
-        MyRigidBody2D.bodyType = RigidbodyType2D.Kinematic;
-        MySpriteRender = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
-        MyBoxColliderTrigger2D = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
-        MyBoxColliderTrigger2D.isTrigger = true;
-        MyBoxCollider2D = gameObject.AddComponent<BoxCollider2D>() as BoxCollider2D;
-        MyBoxCollider2D.enabled = true;
         UpdateCharacterStats();
     }
 

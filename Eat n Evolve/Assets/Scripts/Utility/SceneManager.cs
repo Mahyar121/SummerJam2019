@@ -9,6 +9,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField] private List<Transform> quadrants;
     [SerializeField] private List<Transform> playerSpawns;
     [SerializeField] private List<GameObject> zones;
+    // Manages the player's evolutionPoints
+    [SerializeField] private int evolutionPoints = 0;
 
     // Creates a singleton of the SceneManager since we only need one unique instance
     private static SceneManager instance;
@@ -21,24 +23,21 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public Transform PlayerSpawnLocation { get; set; }
-
     // Start is called before the first frame update
     void Start()
     {
-        randomizePlayerSpawn();
+        RandomizePlayerSpawn();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if player is dead then randomize spawn of player
     }
 
-    private void randomizePlayerSpawn()
+    public void RandomizePlayerSpawn()
     {
         int randomSpawn = Random.Range(0, playerSpawns.Capacity);
-        PlayerSpawnLocation = playerSpawns[randomSpawn];
+        PlayerController.Instance.StartPosition = playerSpawns[randomSpawn];
     }
 
 
