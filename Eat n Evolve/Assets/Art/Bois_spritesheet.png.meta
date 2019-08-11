@@ -1,0 +1,655 @@
+fileFormatVersion: 2
+guid: ffb58c13c044984489145341fcc52461
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4345703431218662951
+    second: horns_front
+  - first:
+      213: 1660463862697667301
+    second: Bois_spritesheet_2
+  - first:
+      213: -5280089927158797754
+    second: horns_side
+  - first:
+      213: -7399789556476906612
+    second: spikes_front
+  - first:
+      213: -4600428563268367684
+    second: spikes_side
+  - first:
+      213: 8342311690898682441
+    second: claw_front_right
+  - first:
+      213: 1136943725024080370
+    second: nose_front
+  - first:
+      213: 1595378861577102945
+    second: claw_front_left
+  - first:
+      213: 2017724724249659572
+    second: claw_side
+  - first:
+      213: 5979961522018116466
+    second: nose_side
+  - first:
+      213: -7521505793476845326
+    second: gobbler_front
+  - first:
+      213: 6172860734073834666
+    second: gobbler_side
+  - first:
+      213: -714754316235663803
+    second: gobbler_back
+  - first:
+      213: 2396399597520735763
+    second: fin_side
+  - first:
+      213: -1907416274996828579
+    second: fin_back_left
+  - first:
+      213: -7651137175608376795
+    second: fin_back_right
+  - first:
+      213: -4997601364960301617
+    second: foot_front_right
+  - first:
+      213: -395449781922011106
+    second: foot_front_left
+  - first:
+      213: -9201111088060931535
+    second: foot_side
+  - first:
+      213: -1727481267514661346
+    second: foot_back_left
+  - first:
+      213: 8459021382079265424
+    second: Bois_spritesheet_30
+  - first:
+      213: -7740370764451349867
+    second: fin_front_right
+  - first:
+      213: -9150727897541305647
+    second: fin_front_left
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: horns_front
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 1853
+        width: 264
+        height: 186
+      alignment: 9
+      pivot: {x: 0.49999988, y: 0.038616877}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37d04f0e6e6ea3d48a3a0e92d4c25df3
+      internalID: -4345703431218662951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bois_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 1905
+        width: 4
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55941dffce7525547ba9c8b30591c8f1
+      internalID: 1660463862697667301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: horns_side
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 1850
+        width: 123
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff9e3298c31724b47bbf4b34b37ddf58
+      internalID: -5280089927158797754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spikes_front
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1712
+        width: 256
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a73f7560b43766a49a6dba4606c87840
+      internalID: -7399789556476906612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spikes_side
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 1697
+        width: 266
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cdb006a46a469c46b2c3710d1771514
+      internalID: -4600428563268367684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: claw_front_right
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1447
+        width: 122
+        height: 196
+      alignment: 9
+      pivot: {x: 0.8221762, y: 0.9111029}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293bc0fdf19d94144aac107455cbb74a
+      internalID: 8342311690898682441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nose_front
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 1539
+        width: 72
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01df2422970523147b2320884949f72c
+      internalID: 1136943725024080370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: claw_front_left
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1447
+        width: 122
+        height: 196
+      alignment: 9
+      pivot: {x: 0.1617144, y: 0.9077603}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f72f19cb07b044f99c5642914a0dc8
+      internalID: 1595378861577102945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: claw_side
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 1428
+        width: 170
+        height: 218
+      alignment: 9
+      pivot: {x: 0.47687843, y: 0.93272024}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f77f06a4bf43614f888432bd77080b2
+      internalID: 2017724724249659572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: nose_side
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 1465
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e60a096b4738532458f0fe3bd5cc9932
+      internalID: 5979961522018116466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gobbler_front
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 1169
+        width: 312
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c24ee5f6ebdbb4d8d88e19422b9b36
+      internalID: -7521505793476845326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gobbler_side
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 1171
+        width: 286
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 050d9a02c4e83ef488715b5a39be4d16
+      internalID: 6172860734073834666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gobbler_back
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 1178
+        width: 310
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e47a18ad23ad9da47a16b803109dcd76
+      internalID: -714754316235663803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fin_side
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1048
+        width: 209
+        height: 97
+      alignment: 9
+      pivot: {x: 0.82596344, y: 0.8434454}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b0abfbcff1f2634aabf0cf1edf26843
+      internalID: 2396399597520735763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fin_back_left
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 1057
+        width: 169
+        height: 81
+      alignment: 9
+      pivot: {x: 0.7868443, y: 0.815984}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 310e640539198a942b5334536e86a3b9
+      internalID: -1907416274996828579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fin_back_right
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 1055
+        width: 163
+        height: 83
+      alignment: 9
+      pivot: {x: 0.2066141, y: 0.80872005}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45cc0afd4fc027d4888ca258b0d27be7
+      internalID: -7651137175608376795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foot_front_right
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 905
+        width: 148
+        height: 96
+      alignment: 9
+      pivot: {x: 0.6681992, y: 0.8411929}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 454fb8c9f0d4db14dacfda14c2300ce0
+      internalID: -4997601364960301617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foot_front_left
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 905
+        width: 147
+        height: 97
+      alignment: 9
+      pivot: {x: 0.32174352, y: 0.77810436}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47f0d79ad1999964b83b50ba99b533f6
+      internalID: -395449781922011106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foot_side
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 900
+        width: 228
+        height: 98
+      alignment: 9
+      pivot: {x: 0.73847586, y: 0.8074901}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ccd68c3e7285634c89cd50c3f32a127
+      internalID: -9201111088060931535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: foot_back_left
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 919
+        width: 146
+        height: 85
+      alignment: 9
+      pivot: {x: 0.69293714, y: 0.80119026}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea6bbe03e6cf4949aa3d8a5cc1cd94c
+      internalID: -1727481267514661346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bois_spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 920
+        width: 145
+        height: 84
+      alignment: 9
+      pivot: {x: 0.37349895, y: 0.7560116}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b89e8d1e0515d3498d1355fa463132a
+      internalID: 8459021382079265424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fin_front_right
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1035
+        width: 165
+        height: 99
+      alignment: 9
+      pivot: {x: 0.7540962, y: 0.82754457}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e0c4447c8f7be349a5e74790b8129fe
+      internalID: -7740370764451349867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fin_front_left
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 1036
+        width: 164
+        height: 98
+      alignment: 9
+      pivot: {x: 0.22208196, y: 0.7807524}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c05f5ece01b55d24b8307dbc35a46e40
+      internalID: -9150727897541305647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
