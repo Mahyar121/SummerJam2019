@@ -73,17 +73,15 @@ public class PlayerController : Character
 
     public override void Initialize()
     {
-        // Ctrl+K+C to comment
-        // Ctrl+K+U to uncomment
         // needs barcontroller added otherwise it dies
-        //healthStat.Initialize();
-        //clawsStat.Initialize();
-        //hornsStat.Initialize();
-        //spikeStat.Initialize();
-        //scentyStat.Initialize();
-        //fishyStat.Initialize();
-        //stinkyStat.Initialize();
-        //sneakyStat.Initialize();
+        healthStat.Initialize();
+        clawsStat.Initialize();
+        hornsStat.Initialize();
+        spikeStat.Initialize();
+        scentyStat.Initialize();
+        fishyStat.Initialize();
+        stinkyStat.Initialize();
+        sneakyStat.Initialize();
         MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
     }
@@ -116,6 +114,38 @@ public class PlayerController : Character
             {
                 Debug.Log("Striked with spikes!");
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            clawsStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            hornsStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            spikeStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            scentyStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            fishyStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            stinkyStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            sneakyStat.CurrentStatValue += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            healthStat.CurrentStatValue -= 10;
         }
     }
 
