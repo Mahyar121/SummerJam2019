@@ -14,6 +14,7 @@ public class PlayerController : Character
     [SerializeField] private Stat fishyStat;
     [SerializeField] private Stat stinkyStat;
     [SerializeField] private Stat sneakyStat;
+    [SerializeField] public GameObject HornsObject;
 
     // character top down movement
     private Vector3 inputMovement;
@@ -53,12 +54,13 @@ public class PlayerController : Character
     {
         Initialize();
         base.Start();
-        GetComponentInChildren<EdgeCollider2D>().enabled = false;
+        HornsObject.SetActive(false);
         MyAnimator = GetComponent<Animator>();
         MyTransform = GetComponent<Transform>();
         MyRigidBody2D = GetComponent<Rigidbody2D>();
         StartPosition = GetComponent<Transform>();
         StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
+
     }
 
 
@@ -119,12 +121,14 @@ public class PlayerController : Character
             // if the player has claws do the claws animation
             if (Instance.HasClaws)
             {
-                GetComponentInChildren<ParticleSystem>().Play();
+                //GetComponentInChildren<ParticleSystem>().Play();
                 Debug.Log("Striked with claws!");
             }
             // if player has horns do the horns animation
             if (Instance.HasHorns)
             {
+                HornsObject.SetActive(true);
+                HornsObject.GetComponent<Animator>().SetTrigger("HornsAttack");
                 Debug.Log("Striked with horns!");
             }
             // if player has spikes do the spikes animation
