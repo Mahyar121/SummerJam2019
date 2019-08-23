@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8395197786045226855}
   - component: {fileID: 8395197786045226854}
   - component: {fileID: 1716624852}
+  - component: {fileID: 8395197786677478068}
+  - component: {fileID: 8870563916147455961}
   m_Layer: 0
   m_Name: VFX Claw Scratch
   m_TagString: Untagged
@@ -41,7 +43,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8395197786045226849}
   serializedVersion: 6
-  lengthInSec: 1
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -4828,7 +4830,7 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8395197786045226849}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -4845,3 +4847,34 @@ EdgeCollider2D:
   - {x: 5.7538366, y: -0.5223402}
   - {x: 3.8055658, y: -0.7643718}
   - {x: 0.8941138, y: -0.3941152}
+--- !u!114 &8395197786677478068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395197786045226849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ed9f88e7c959f4e9b44fb70fd1a3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &8870563916147455961
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395197786045226849}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96f117bf887f4fe468270105e5885e74, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

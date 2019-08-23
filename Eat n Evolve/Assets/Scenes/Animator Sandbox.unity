@@ -341,11 +341,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1059144417, guid: 14fce8a9feb5c674288397b500d17224, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358031379, guid: 14fce8a9feb5c674288397b500d17224, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14fce8a9feb5c674288397b500d17224, type: 3}
@@ -414,6 +414,11 @@ PrefabInstance:
     - target: {fileID: 8395197786045226852, guid: 855a431036b2dd248be8a5cf491fd7a9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8395197786045226855, guid: 855a431036b2dd248be8a5cf491fd7a9,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
