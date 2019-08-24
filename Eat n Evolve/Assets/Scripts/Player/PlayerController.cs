@@ -14,15 +14,25 @@ public class PlayerController : Character
     [SerializeField] private Stat fishyStat;
     [SerializeField] private Stat stinkyStat;
     [SerializeField] private Stat sneakyStat;
+    //Objects for Horns
     [SerializeField] public GameObject HornsObject;
     [SerializeField] public GameObject VFXCharge;
+    // Objects for Claws
+    [SerializeField] public GameObject LeftClaw;
+    [SerializeField] public GameObject RightClaw;
+    [SerializeField] public GameObject VFXClaw;
 
     // Charge logic
-    [SerializeField] private float initialChargeTime;
     private Vector3 chargeDestination;
+    private float initialChargeTime = 1f;
     private float currentChargeTime;
     private float chargeSpeed = 20f;
     private bool isCharging = false;
+
+    // Claw logic
+    private float initialClawTime = 1f;
+    private float currentClawTime;
+    private bool isClawing = false;
 
     // character top down movement
     private Vector3 inputMovement;
@@ -83,7 +93,8 @@ public class PlayerController : Character
     {
 
         HandleInput();
-        HandleCharging();
+        HandleChargingCooldown();
+        HandleClawingCooldown();
         //PlayerTraitLevelerHandler();
 
     }
@@ -106,6 +117,8 @@ public class PlayerController : Character
         InitializeStat(Instance.sneakyStat, Instance.Sneaky);
         MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
+        Instance.VFXCharge.SetActive(false);
+        Instance.VFXClaw.SetActive(false);
     }
 
     // Will handle the top down movement of the player
@@ -134,15 +147,64 @@ public class PlayerController : Character
         // Player presses the attack button
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Hello");
             // if the player has claws do the claws animation
-            if (Instance.HasClaws)
+            if (Instance.HasClaws == true)
             {
-                //GetComponentInChildren<ParticleSystem>().Play();
-                Debug.Log("Striked with claws!");
+                if (isClawing == false && FreezeControls == false)
+                {
+                    if (MyAnimator.GetBool("FacingNorth") == true)
+                    {
+                        isClawing = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXClaw.transform.localPosition = new Vector3(0, -3f, 0);
+                        Instance.VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 90);
+                        Instance.VFXClaw.transform.localScale = new Vector3(0.5f, 0.5f, 2);
+                        VFXClaw.SetActive(true);
+                        PlayerController.Instance.VFXClaw.GetComponent<ParticleSystem>().Play();
+                        VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
+                        Debug.Log("Striked with claws!");
+                    }
+                    if (MyAnimator.GetBool("FacingSouth") == true)
+                    {
+                        isClawing = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXClaw.transform.localPosition = new Vector3(0, 3f, 0);
+                        Instance.VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 90);
+                        Instance.VFXClaw.transform.localScale = new Vector3(-0.5f, -0.5f, 2);
+                        VFXClaw.SetActive(true);
+                        PlayerController.Instance.VFXClaw.GetComponent<ParticleSystem>().Play();
+                        VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
+                        Debug.Log("Striked with claws!");
+                    }
+                    if (MyAnimator.GetBool("FacingWest") == true)
+                    {
+                        isClawing = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXClaw.transform.localPosition = new Vector3(3f, 0, 0);
+                        Instance.VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                        Instance.VFXClaw.transform.localScale = new Vector3(-0.5f, -0.5f, 2);
+                        VFXClaw.SetActive(true);
+                        PlayerController.Instance.VFXClaw.GetComponent<ParticleSystem>().Play();
+                        VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
+                        Debug.Log("Striked with claws!");
+                    }
+                    if (MyAnimator.GetBool("FacingEast") == true)
+                    {
+                        isClawing = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXClaw.transform.localPosition = new Vector3(-3f, 0, 0);
+                        Instance.VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                        Instance.VFXClaw.transform.localScale = new Vector3(0.5f, 0.5f, 2);
+                        VFXClaw.SetActive(true);
+                        PlayerController.Instance.VFXClaw.GetComponent<ParticleSystem>().Play();
+                        VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
+                        Debug.Log("Striked with claws!");
+                    }
+                }
+
             }
             // if player has horns do the horns animation
-            if (Instance.HasHorns)
+            if (Instance.HasHorns == true)
             {
                 if (isCharging == false && FreezeControls == false)
                 {
@@ -201,7 +263,7 @@ public class PlayerController : Character
                 }
             }
             // if player has spikes do the spikes animation
-            if (Instance.HasSpikes)
+            if (Instance.HasSpikes == true)
             {
                 Debug.Log("Striked with spikes!");
             }
@@ -277,23 +339,39 @@ public class PlayerController : Character
         switch (characterTraitState) {
             case 1:
                 Instance.HasClaws = true;
+                Instance.HasHorns = false;
+                Instance.HasSpikes = false;
                 Debug.Log("Player got claws!");
                 Instance.HornsObject.SetActive(false);
+                Instance.LeftClaw.SetActive(true);
+                Instance.RightClaw.SetActive(true);
                 break;
             case 2:
                 Instance.HasHorns = true;
+                Instance.HasClaws = false;
+                Instance.HasSpikes = false;
                 Debug.Log("Player got horns!");
                 Instance.HornsObject.SetActive(true);
+                Instance.LeftClaw.SetActive(false);
+                Instance.RightClaw.SetActive(false);
                 break;
             case 3:
                 Instance.HasSpikes = true;
+                Instance.HasHorns = false;
+                Instance.HasClaws = false;
                 Debug.Log("Player got spikes!");
                 Instance.HornsObject.SetActive(false);
+                Instance.LeftClaw.SetActive(false);
+                Instance.RightClaw.SetActive(false);
                 break;
             default:
                 Instance.HasClaws = true;
+                Instance.HasHorns = false;
+                Instance.HasSpikes = false;
                 Debug.Log("Defaulted the player to claws!");
                 Instance.HornsObject.SetActive(false);
+                Instance.LeftClaw.SetActive(true);
+                Instance.RightClaw.SetActive(true);
                 break;
         }
       
@@ -358,7 +436,7 @@ public class PlayerController : Character
         stat.MaxStatValue = epRequired;
     }
 
-    private void HandleCharging()
+    private void HandleChargingCooldown()
     {
         if (isCharging == true)
         {
@@ -371,6 +449,22 @@ public class PlayerController : Character
             {
                 currentChargeTime = initialChargeTime;
                 isCharging = false;
+            }
+        }
+    }
+
+    private void HandleClawingCooldown()
+    {
+        if (isClawing == true)
+        {
+            if (currentClawTime > 0)
+            {
+                currentClawTime -= Time.deltaTime;
+            }
+            else if (currentClawTime <= 0)
+            {
+                currentClawTime = initialClawTime;
+                isClawing = false;
             }
         }
     }

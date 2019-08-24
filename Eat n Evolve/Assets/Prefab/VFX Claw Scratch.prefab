@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 8395197786045226852}
   - component: {fileID: 8395197786045226855}
   - component: {fileID: 8395197786045226854}
-  - component: {fileID: 1716624852}
-  - component: {fileID: 8395197786677478068}
   - component: {fileID: 8870563916147455961}
+  - component: {fileID: 1126480709551370068}
   m_Layer: 0
   m_Name: VFX Claw Scratch
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4823,42 +4822,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!68 &1716624852
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395197786045226849}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.96897364, y: 0.30454314}
-  - {x: 3.4785104, y: 1.2939425}
-  - {x: 5.6593194, y: 1.4331452}
-  - {x: 6.48338, y: 1.0211157}
-  - {x: 6.536891, y: 0.07104337}
-  - {x: 5.7538366, y: -0.5223402}
-  - {x: 3.8055658, y: -0.7643718}
-  - {x: 0.8941138, y: -0.3941152}
---- !u!114 &8395197786677478068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395197786045226849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ed9f88e7c959f4e9b44fb70fd1a3c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8870563916147455961
 Animator:
   serializedVersion: 3
@@ -4878,3 +4841,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &1126480709551370068
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395197786045226849}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.0001, y: 0.0001}
+  m_EdgeRadius: 0
