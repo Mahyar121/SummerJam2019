@@ -15,9 +15,18 @@ public class PlayerController : Character
     [SerializeField] private Stat stinkyStat;
     [SerializeField] private Stat sneakyStat;
     [SerializeField] public GameObject HornsObject;
+    [SerializeField] public GameObject VFXCharge;
+
+    // Charge logic
+    [SerializeField] private float initialChargeTime;
+    private Vector2 chargeDestination;
+    private float currentChargeTime;
+    private float chargeSpeed = 8f;
+    private bool isCharging = false;
 
     // character top down movement
     private Vector3 inputMovement;
+    public bool FreezeControls { get; set; }
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
@@ -54,12 +63,14 @@ public class PlayerController : Character
     {
         Initialize();
         base.Start();
-        HornsObject.SetActive(false);
+        VFXCharge.SetActive(false);
         MyAnimator = GetComponent<Animator>();
         MyTransform = GetComponent<Transform>();
-        MyRigidBody2D = GetComponent<Rigidbody2D>();
         StartPosition = GetComponent<Transform>();
-        StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
+        MyRigidBody2D = GetComponent<Rigidbody2D>();
+        FreezeControls = false;
+        Instance.StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
+        
 
     }
 
@@ -67,8 +78,11 @@ public class PlayerController : Character
     // Put anything non physics related that needs updating here
     private void Update()
     {
+
         HandleInput();
-        PlayerTraitLevelerHandler();
+        HandleCharging();
+        //PlayerTraitLevelerHandler();
+
     }
 
     // Put anything physics related that needs updating here
@@ -100,7 +114,7 @@ public class PlayerController : Character
         MyAnimator.SetFloat("SpeedX", horizontal);
         MyAnimator.SetFloat("SpeedY", vertical);
 
-        if (MyAnimator.GetFloat("SpeedX") == 0 && MyAnimator.GetFloat("SpeedY") == 0)
+        if (MyAnimator.GetFloat("SpeedX") == 0 && MyAnimator.GetFloat("SpeedY") == 0 && isCharging == false) 
         {
             MyAnimator.SetBool("IsIdle", true);
         }
@@ -111,7 +125,7 @@ public class PlayerController : Character
 
 
     }
-
+   
     private void HandleInput()
     {
         // Player presses the attack button
@@ -127,9 +141,65 @@ public class PlayerController : Character
             // if player has horns do the horns animation
             if (Instance.HasHorns)
             {
-                HornsObject.SetActive(true);
-                HornsObject.GetComponent<Animator>().SetTrigger("HornsAttack");
-                Debug.Log("Striked with horns!");
+                if (isCharging == false && FreezeControls == false)
+                {
+                    if (MyAnimator.GetBool("FacingNorth") == true)
+                    {
+                        isCharging = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXCharge.transform.localPosition = new Vector3(0.2f, -2f, 0);
+                        Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 90);
+                        Instance.VFXCharge.transform.localScale = new Vector3(-2, 3, 2);
+                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+                        // Changes distance he moves to (the position.y + xx)
+                        chargeDestination = new Vector2(MyTransform.position.x, MyTransform.position.y + 5);
+                        VFXCharge.SetActive(true);
+                        VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
+                        Debug.Log("Striked with horns!");
+                    }
+                    if (MyAnimator.GetBool("FacingSouth") == true)
+                    {
+                        isCharging = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXCharge.transform.localPosition = new Vector3(0.2f, 2, 0);
+                        Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 90);
+                        Instance.VFXCharge.transform.localScale = new Vector3(2, 3, 2);
+                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+                        // Changes distance he moves to (the position.y - xx)
+                        chargeDestination = new Vector2(MyTransform.position.x, MyTransform.position.y - 5);
+                        VFXCharge.SetActive(true);
+                        VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
+                        Debug.Log("Striked with horns!");
+                    }
+                    if (MyAnimator.GetBool("FacingWest") == true)
+                    {
+                        isCharging = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXCharge.transform.localPosition = new Vector3(2f, 0, 0);
+                        Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                        Instance.VFXCharge.transform.localScale = new Vector3(2, 3, 2);
+                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+                        // Changes distance he moves to (the position.x - xx)
+                        chargeDestination = new Vector2(MyTransform.position.x - 5, MyTransform.position.y);
+                        VFXCharge.SetActive(true);
+                        VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
+                        Debug.Log("Striked with horns!");
+                    }
+                    if (MyAnimator.GetBool("FacingEast") == true)
+                    {
+                        isCharging = true;
+                        currentChargeTime = initialChargeTime;
+                        Instance.VFXCharge.transform.localPosition = new Vector3(-2f, 0, 0);
+                        Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                        Instance.VFXCharge.transform.localScale = new Vector3(-2, 3, 2);
+                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+                        // Changes distance he moves to (the position.x + xx)
+                        chargeDestination = new Vector2(MyTransform.position.x + 5, MyTransform.position.y);
+                        VFXCharge.SetActive(true);
+                        VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
+                        Debug.Log("Striked with horns!");
+                    }
+                }
             }
             // if player has spikes do the spikes animation
             if (Instance.HasSpikes)
@@ -137,40 +207,46 @@ public class PlayerController : Character
                 Debug.Log("Striked with spikes!");
             }
         }
+        if (Instance.FreezeControls == false)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                MyAnimator.SetBool("FacingNorth", true);
+                MyAnimator.SetBool("FacingSouth", false);
+                MyAnimator.SetBool("FacingWest", false);
+                MyAnimator.SetBool("FacingEast", false);
+                MyAnimator.SetBool("IsIdle", false);
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            MyAnimator.SetBool("FacingNorth", true);
-            MyAnimator.SetBool("FacingSouth", false);
-            MyAnimator.SetBool("FacingWest", false);
-            MyAnimator.SetBool("FacingEast", false);
-            MyAnimator.SetBool("IsIdle", false);
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                MyAnimator.SetBool("FacingNorth", false);
+                MyAnimator.SetBool("FacingSouth", false);
+                MyAnimator.SetBool("FacingWest", true);
+                MyAnimator.SetBool("FacingEast", false);
+                MyAnimator.SetBool("IsIdle", false);
+            }
 
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                MyAnimator.SetBool("FacingNorth", false);
+                MyAnimator.SetBool("FacingSouth", true);
+                MyAnimator.SetBool("FacingWest", false);
+                MyAnimator.SetBool("FacingEast", false);
+                MyAnimator.SetBool("IsIdle", false);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                MyAnimator.SetBool("FacingNorth", false);
+                MyAnimator.SetBool("FacingSouth", false);
+                MyAnimator.SetBool("FacingWest", false);
+                MyAnimator.SetBool("FacingEast", true);
+                MyAnimator.SetBool("IsIdle", false);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            MyAnimator.SetBool("FacingNorth", false);
-            MyAnimator.SetBool("FacingSouth", false);
-            MyAnimator.SetBool("FacingWest", true);
-            MyAnimator.SetBool("FacingEast", false);
-            MyAnimator.SetBool("IsIdle", false);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            MyAnimator.SetBool("FacingNorth", false);
-            MyAnimator.SetBool("FacingSouth", true);
-            MyAnimator.SetBool("FacingWest", false);
-            MyAnimator.SetBool("FacingEast", false);
-            MyAnimator.SetBool("IsIdle", false);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            MyAnimator.SetBool("FacingNorth", false);
-            MyAnimator.SetBool("FacingSouth", false);
-            MyAnimator.SetBool("FacingWest", false);
-            MyAnimator.SetBool("FacingEast", true);
-            MyAnimator.SetBool("IsIdle", false);
+            RandomCharacterTraitSelection();
         }
     }
 
@@ -203,18 +279,22 @@ public class PlayerController : Character
             case 1:
                 Instance.HasClaws = true;
                 Debug.Log("Player got claws!");
+                Instance.HornsObject.SetActive(false);
                 break;
             case 2:
                 Instance.HasHorns = true;
                 Debug.Log("Player got horns!");
+                Instance.HornsObject.SetActive(true);
                 break;
             case 3:
                 Instance.HasSpikes = true;
                 Debug.Log("Player got spikes!");
+                Instance.HornsObject.SetActive(false);
                 break;
             default:
                 Instance.HasClaws = true;
                 Debug.Log("Defaulted the player to claws!");
+                Instance.HornsObject.SetActive(false);
                 break;
         }
       
@@ -277,5 +357,21 @@ public class PlayerController : Character
     {
         stat.CurrentStatValue = currentStat;
         stat.MaxStatValue = epRequired;
+    }
+
+    private void HandleCharging()
+    {
+        if (isCharging == true)
+        {
+            if (currentChargeTime > 0)
+            {
+                currentChargeTime -= Time.deltaTime;
+                Instance.MyTransform.position = Vector3.MoveTowards(transform.position, chargeDestination, (Time.deltaTime * chargeSpeed));
+            } else if (currentChargeTime <= 0)
+            {
+                currentChargeTime = initialChargeTime;
+                isCharging = false;
+            }
+        }
     }
 }
