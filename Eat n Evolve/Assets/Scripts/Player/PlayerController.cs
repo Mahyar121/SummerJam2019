@@ -19,9 +19,9 @@ public class PlayerController : Character
 
     // Charge logic
     [SerializeField] private float initialChargeTime;
-    private Vector2 chargeDestination;
+    private Vector3 chargeDestination;
     private float currentChargeTime;
-    private float chargeSpeed = 8f;
+    private float chargeSpeed = 20f;
     private bool isCharging = false;
 
     // character top down movement
@@ -31,6 +31,8 @@ public class PlayerController : Character
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
     public Transform StartPosition { get; set; }
+
+    public float Damage { get { return damage; } } 
     public float Health { get { return health; } set { health = value; } }
     public float Claws { get { return claws; }  set { claws = value; } }
     public float ClawsLevel { get { return clawsLevel; } set { clawsLevel = value; } }
@@ -46,6 +48,7 @@ public class PlayerController : Character
     public float StinkyLevel { get { return stinkyLevel; } set { stinkyLevel = value; } }
     public float Sneaky { get { return sneaky; } set { sneaky = value; } }
     public float SneakyLevel { get { return sneakyLevel; } set { sneakyLevel = value; } }
+
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
     private static PlayerController instance;
@@ -150,9 +153,8 @@ public class PlayerController : Character
                         Instance.VFXCharge.transform.localPosition = new Vector3(0.2f, -2f, 0);
                         Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 90);
                         Instance.VFXCharge.transform.localScale = new Vector3(-2, 3, 2);
-                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
                         // Changes distance he moves to (the position.y + xx)
-                        chargeDestination = new Vector2(MyTransform.position.x, MyTransform.position.y + 5);
+                        chargeDestination = new Vector3(MyTransform.position.x, MyTransform.position.y + chargeSpeed, MyTransform.position.z);
                         VFXCharge.SetActive(true);
                         VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
                         Debug.Log("Striked with horns!");
@@ -164,9 +166,8 @@ public class PlayerController : Character
                         Instance.VFXCharge.transform.localPosition = new Vector3(0.2f, 2, 0);
                         Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 90);
                         Instance.VFXCharge.transform.localScale = new Vector3(2, 3, 2);
-                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
                         // Changes distance he moves to (the position.y - xx)
-                        chargeDestination = new Vector2(MyTransform.position.x, MyTransform.position.y - 5);
+                        chargeDestination = new Vector3(MyTransform.position.x, MyTransform.position.y - chargeSpeed, MyTransform.position.z);
                         VFXCharge.SetActive(true);
                         VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
                         Debug.Log("Striked with horns!");
@@ -178,9 +179,8 @@ public class PlayerController : Character
                         Instance.VFXCharge.transform.localPosition = new Vector3(2f, 0, 0);
                         Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 0);
                         Instance.VFXCharge.transform.localScale = new Vector3(2, 3, 2);
-                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
                         // Changes distance he moves to (the position.x - xx)
-                        chargeDestination = new Vector2(MyTransform.position.x - 5, MyTransform.position.y);
+                        chargeDestination = new Vector3(MyTransform.position.x - chargeSpeed, MyTransform.position.y, MyTransform.position.z);
                         VFXCharge.SetActive(true);
                         VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
                         Debug.Log("Striked with horns!");
@@ -192,9 +192,8 @@ public class PlayerController : Character
                         Instance.VFXCharge.transform.localPosition = new Vector3(-2f, 0, 0);
                         Instance.VFXCharge.transform.localRotation = Quaternion.Euler(0, 0, 0);
                         Instance.VFXCharge.transform.localScale = new Vector3(-2, 3, 2);
-                        Instance.MyRigidBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
                         // Changes distance he moves to (the position.x + xx)
-                        chargeDestination = new Vector2(MyTransform.position.x + 5, MyTransform.position.y);
+                        chargeDestination = new Vector3(MyTransform.position.x + chargeSpeed, MyTransform.position.y, MyTransform.position.z);
                         VFXCharge.SetActive(true);
                         VFXCharge.GetComponent<Animator>().SetTrigger("HornsAttack");
                         Debug.Log("Striked with horns!");
@@ -366,7 +365,8 @@ public class PlayerController : Character
             if (currentChargeTime > 0)
             {
                 currentChargeTime -= Time.deltaTime;
-                Instance.MyTransform.position = Vector3.MoveTowards(transform.position, chargeDestination, (Time.deltaTime * chargeSpeed));
+                Vector3 direction = chargeDestination - transform.position;
+                Instance.MyRigidBody2D.AddForceAtPosition(direction * chargeSpeed, Instance.MyTransform.position);
             } else if (currentChargeTime <= 0)
             {
                 currentChargeTime = initialChargeTime;

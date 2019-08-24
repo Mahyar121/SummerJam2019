@@ -46,20 +46,20 @@ public class MeleeAI : Character
     public override void Start()
     {
         base.Start();
-        randomDirection = new Vector2(0, 0);
-        MyRigidBody2D = GetComponent<Rigidbody2D>();
-        isIdle = true;
-        isMoving = false;
-        TakingDamage = false;
-        Attack = false;
-        wanderTimer = 0;
-        wanderTimerSpeed = 20f;
-        wanderTimerState = 0;
-        wanderTimerMax = 1;
-        idleTimer = 0;
-        idleDuration = Random.Range(1, 10);
-        movingTimer = 0;
-        movingDuration = Random.Range(1, 10);
+        //randomDirection = new Vector2(0, 0);
+        //MyRigidBody2D = GetComponent<Rigidbody2D>();
+        //isIdle = true;
+        //isMoving = false;
+        //TakingDamage = false;
+        //Attack = false;
+        //wanderTimer = 0;
+        //wanderTimerSpeed = 20f;
+        //wanderTimerState = 0;
+        //wanderTimerMax = 1;
+        //idleTimer = 0;
+        //idleDuration = Random.Range(1, 10);
+        //movingTimer = 0;
+        //movingDuration = Random.Range(1, 10);
     }
 
     private void Update()
@@ -185,6 +185,14 @@ public class MeleeAI : Character
 
         randomDirection.x = tempVector2.x;
         randomDirection.y = tempVector2.y;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            Debug.Log("I took " + PlayerController.Instance.Damage);
+        }
     }
 
     public override void Death()
