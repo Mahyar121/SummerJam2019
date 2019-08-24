@@ -14,13 +14,18 @@ public class PlayerController : Character
     [SerializeField] private Stat fishyStat;
     [SerializeField] private Stat stinkyStat;
     [SerializeField] private Stat sneakyStat;
-    //Objects for Horns
+    // Objects for Horns
     [SerializeField] public GameObject HornsObject;
     [SerializeField] public GameObject VFXCharge;
     // Objects for Claws
     [SerializeField] public GameObject LeftClaw;
     [SerializeField] public GameObject RightClaw;
     [SerializeField] public GameObject VFXClaw;
+    // Objects for Spikes
+    [SerializeField] public GameObject[] VFXSpikes;
+    [SerializeField] public GameObject SpikeObject;
+   
+
 
     // Charge logic
     private Vector3 chargeDestination;
@@ -33,6 +38,11 @@ public class PlayerController : Character
     private float initialClawTime = 1f;
     private float currentClawTime;
     private bool isClawing = false;
+
+    // Impale logic
+    private float initialImpalingTime = 1f;
+    private float currentImpalingTime;
+    private bool isImpaling = false;
 
     // character top down movement
     private Vector3 inputMovement;
@@ -95,6 +105,7 @@ public class PlayerController : Character
         HandleInput();
         HandleChargingCooldown();
         HandleClawingCooldown();
+        HandleImpalingCooldown();
         //PlayerTraitLevelerHandler();
 
     }
@@ -119,6 +130,7 @@ public class PlayerController : Character
         RandomCharacterTraitSelection();
         Instance.VFXCharge.SetActive(false);
         Instance.VFXClaw.SetActive(false);
+        foreach(GameObject spike in VFXSpikes) { spike.SetActive(false); }
     }
 
     // Will handle the top down movement of the player
@@ -150,7 +162,7 @@ public class PlayerController : Character
             // if the player has claws do the claws animation
             if (Instance.HasClaws == true)
             {
-                if (isClawing == false && FreezeControls == false)
+                if (isClawing == false)
                 {
                     if (MyAnimator.GetBool("FacingNorth") == true)
                     {
@@ -265,7 +277,16 @@ public class PlayerController : Character
             // if player has spikes do the spikes animation
             if (Instance.HasSpikes == true)
             {
-                Debug.Log("Striked with spikes!");
+                if (isImpaling == false)
+                {
+                    isImpaling = true;
+                    currentChargeTime = initialChargeTime;
+                    foreach (GameObject spike in VFXSpikes) {
+                        spike.SetActive(true);
+                        spike.GetComponent<Animator>().SetTrigger("ImpalingAttack");
+                    }
+                    Debug.Log("Striked with spikes!");                
+                }
             }
         }
         if (Instance.FreezeControls == false)
@@ -345,6 +366,7 @@ public class PlayerController : Character
                 Instance.HornsObject.SetActive(false);
                 Instance.LeftClaw.SetActive(true);
                 Instance.RightClaw.SetActive(true);
+                Instance.SpikeObject.SetActive(false);
                 break;
             case 2:
                 Instance.HasHorns = true;
@@ -354,6 +376,7 @@ public class PlayerController : Character
                 Instance.HornsObject.SetActive(true);
                 Instance.LeftClaw.SetActive(false);
                 Instance.RightClaw.SetActive(false);
+                Instance.SpikeObject.SetActive(false);
                 break;
             case 3:
                 Instance.HasSpikes = true;
@@ -363,6 +386,7 @@ public class PlayerController : Character
                 Instance.HornsObject.SetActive(false);
                 Instance.LeftClaw.SetActive(false);
                 Instance.RightClaw.SetActive(false);
+                Instance.SpikeObject.SetActive(true);
                 break;
             default:
                 Instance.HasClaws = true;
@@ -372,6 +396,7 @@ public class PlayerController : Character
                 Instance.HornsObject.SetActive(false);
                 Instance.LeftClaw.SetActive(true);
                 Instance.RightClaw.SetActive(true);
+                Instance.SpikeObject.SetActive(false);
                 break;
         }
       
@@ -465,6 +490,22 @@ public class PlayerController : Character
             {
                 currentClawTime = initialClawTime;
                 isClawing = false;
+            }
+        }
+    }
+
+    private void HandleImpalingCooldown()
+    {
+        if (isImpaling == true)
+        {
+            if (currentImpalingTime > 0)
+            {
+                currentImpalingTime -= Time.deltaTime;
+            }
+            else if (currentImpalingTime <= 0)
+            {
+                currentImpalingTime = initialImpalingTime;
+                isImpaling = false;
             }
         }
     }
