@@ -22,10 +22,10 @@ public class PlayerController : Character
     [SerializeField] public GameObject RightClaw;
     [SerializeField] public GameObject VFXClaw;
     // Objects for Spikes
-    [SerializeField] public GameObject[] VFXSpikes;
+    [SerializeField] public GameObject VFXSpike;
     [SerializeField] public GameObject SpikeObject;
-   
-
+    [SerializeField] public GameObject SpikeProjectile;
+    [SerializeField] public GameObject[] SpikeSpawnLocs;
 
     // Charge logic
     private Vector3 chargeDestination;
@@ -51,7 +51,7 @@ public class PlayerController : Character
     public bool HasHorns { get; set; }
     public bool HasSpikes { get; set; }
     public Transform StartPosition { get; set; }
-
+    public bool IsImpaling { get { return IsImpaling; } }
     public float Damage { get { return damage; } } 
     public float Health { get { return health; } set { health = value; } }
     public float Claws { get { return claws; }  set { claws = value; } }
@@ -93,8 +93,6 @@ public class PlayerController : Character
         MyRigidBody2D = GetComponent<Rigidbody2D>();
         FreezeControls = false;
         Instance.StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
-        
-
     }
 
 
@@ -130,7 +128,6 @@ public class PlayerController : Character
         RandomCharacterTraitSelection();
         Instance.VFXCharge.SetActive(false);
         Instance.VFXClaw.SetActive(false);
-        foreach(GameObject spike in VFXSpikes) { spike.SetActive(false); }
     }
 
     // Will handle the top down movement of the player
@@ -280,10 +277,10 @@ public class PlayerController : Character
                 if (isImpaling == false)
                 {
                     isImpaling = true;
-                    currentChargeTime = initialChargeTime;
-                    foreach (GameObject spike in VFXSpikes) {
-                        spike.SetActive(true);
-                        spike.GetComponent<Animator>().SetTrigger("ImpalingAttack");
+                    currentImpalingTime = initialImpalingTime;
+                    foreach (GameObject spikeSpawnLoc in SpikeSpawnLocs)
+                    {
+                        Instantiate(SpikeProjectile, spikeSpawnLoc.transform);
                     }
                     Debug.Log("Striked with spikes!");                
                 }
@@ -367,6 +364,7 @@ public class PlayerController : Character
                 Instance.LeftClaw.SetActive(true);
                 Instance.RightClaw.SetActive(true);
                 Instance.SpikeObject.SetActive(false);
+                Instance.VFXSpike.SetActive(false);
                 break;
             case 2:
                 Instance.HasHorns = true;
@@ -377,9 +375,11 @@ public class PlayerController : Character
                 Instance.LeftClaw.SetActive(false);
                 Instance.RightClaw.SetActive(false);
                 Instance.SpikeObject.SetActive(false);
+                Instance.VFXSpike.SetActive(false);
                 break;
             case 3:
                 Instance.HasSpikes = true;
+                Instance.VFXSpike.SetActive(true);
                 Instance.HasHorns = false;
                 Instance.HasClaws = false;
                 Debug.Log("Player got spikes!");
@@ -397,6 +397,7 @@ public class PlayerController : Character
                 Instance.LeftClaw.SetActive(true);
                 Instance.RightClaw.SetActive(true);
                 Instance.SpikeObject.SetActive(false);
+                Instance.VFXSpike.SetActive(false);
                 break;
         }
       
