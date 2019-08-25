@@ -9,6 +9,29 @@ public class SceneManager : MonoBehaviour
     [SerializeField] private List<GameObject> quadrants;
     [SerializeField] private List<Transform> playerSpawns;
     [SerializeField] private List<GameObject> zones;
+
+    // Enemy Spawn Points
+    [SerializeField] private List<Transform> fishySpawns;
+    [SerializeField] private List<Transform> sneakySpawns;
+    [SerializeField] private List<Transform> generalEnemySpawns;
+
+    // Enemy Fishy Prefabs
+    [SerializeField] private GameObject PricklePrish; // Spike + Fishy
+    [SerializeField] private GameObject Hornfin; // Horn + Fishy
+    [SerializeField] private GameObject Scrashark; // Claw + Fishy
+
+    // Enemy Sneaky Prefabs
+    [SerializeField] private GameObject SneakyPrickle; // Spike + Sneaky
+    [SerializeField] private GameObject Hornshrub; // Horn + Sneaky
+    [SerializeField] private GameObject Scrachthorn; // Claw + Sneaky
+
+    // Enemy Spike
+    [SerializeField] private GameObject PricklePrickle; // Spike
+    // Enemy Charge/Horn
+    [SerializeField] private GameObject HornJoe; // Horn
+    // Enemy Claw
+    [SerializeField] private GameObject Scrattach; // Claw
+
     // Manages the player's evolutionPoints
     [SerializeField] private int evolutionPoints = 0;
 

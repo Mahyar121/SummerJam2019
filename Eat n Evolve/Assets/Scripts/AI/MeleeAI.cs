@@ -46,20 +46,22 @@ public class MeleeAI : Character
     public override void Start()
     {
         base.Start();
-        //randomDirection = new Vector2(0, 0);
-        //MyRigidBody2D = GetComponent<Rigidbody2D>();
-        //isIdle = true;
-        //isMoving = false;
-        //TakingDamage = false;
-        //Attack = false;
-        //wanderTimer = 0;
-        //wanderTimerSpeed = 20f;
-        //wanderTimerState = 0;
-        //wanderTimerMax = 1;
-        //idleTimer = 0;
-        //idleDuration = Random.Range(1, 10);
-        //movingTimer = 0;
-        //movingDuration = Random.Range(1, 10);
+        randomDirection = new Vector2(0, 0);
+        MyRigidBody2D = GetComponent<Rigidbody2D>();
+        isIdle = true;
+        isMoving = false;
+        TakingDamage = false;
+        Attack = false;
+        wanderTimer = 0;
+        wanderTimerSpeed = 20f;
+        wanderTimerState = 0;
+        wanderTimerMax = 1;
+        idleTimer = 0;
+        // idle timer before it decides to mvoe again
+        idleDuration = Random.Range(1, 10);
+        movingTimer = 0;
+        // moving timer before it changes direction
+        movingDuration = Random.Range(1, 10);
     }
 
     private void Update()
@@ -97,7 +99,8 @@ public class MeleeAI : Character
             // Movement
             float velocityX = randomDirection.x * Time.deltaTime * movementSpeed;
             float velocityY = randomDirection.y * Time.deltaTime * movementSpeed;
-            transform.Translate(velocityX, velocityY, 0); 
+            Vector3 direction = new Vector3(velocityX, velocityY, 0) - transform.position;
+            MyRigidBody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position); 
         }
 
 
