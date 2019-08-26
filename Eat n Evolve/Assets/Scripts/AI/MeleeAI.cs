@@ -13,9 +13,6 @@ public class MeleeAI : Character
     public GameObject Target { get; set; }
     public Rigidbody2D MyRigidbody2D { get; set; }
     public Animator MyAnimator { get; set; }
-    public EdgeCollider2D MeleeAttackCollider { get { return meleeAttackCollider; } }
-    public bool Attack { get; set; }
-    public bool TakingDamage { get; set; }
     public bool IsDead {  get { return health <= 0; } }
     public float Damage { get { return damage; } }
     public float Health { get { return health; } set { health = value; } }
@@ -64,28 +61,35 @@ public class MeleeAI : Character
         MyRigidbody2D = GetComponent<Rigidbody2D>();
         isIdle = true;
         isMoving = false;
-        TakingDamage = false;
-        Attack = false;
+        Target = null;
         wanderTimer = 0;
         wanderTimerSpeed = 20f;
         wanderTimerState = 0;
         wanderTimerMax = 1;
         idleTimer = 0;
         // idle timer before it decides to mvoe again
-        idleDuration = Random.Range(1, 10);
+        idleDuration = Random.Range(1, 5);
         movingTimer = 0;
         // moving timer before it changes direction
-        movingDuration = Random.Range(1, 10);
+        movingDuration = Random.Range(1, 5);
     }
 
     private void Update()
     {
         if (!IsDead)
         {
-            if (!TakingDamage && InMeleeRange == false)
+            if (Target == null)
             {
-                ChangeState();
+                ChangeBetweenIdleAndWanderState();
                 Wander();
+            }
+            else if (Target != null)
+            {
+                // Move to Player
+                if (InMeleeRange)
+                {
+                    // Attack Player
+                }
             }
         }
         else
@@ -123,7 +127,7 @@ public class MeleeAI : Character
 
     }
 
-    private void ChangeState()
+    private void ChangeBetweenIdleAndWanderState()
     {
         if (isIdle)
         {
