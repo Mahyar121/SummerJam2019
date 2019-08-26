@@ -44,6 +44,9 @@ public class PlayerController : Character
 
     // character top down movement
     private Vector3 inputMovement;
+
+    // If player is immortal take no damage
+    private bool immortal = false;
     public bool FreezeControls { get; set; }
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
@@ -65,6 +68,7 @@ public class PlayerController : Character
     public Animator MyAnimator { get; set; }
     public Rigidbody2D MyRigidBody2D { get; set; }
     public Transform MyTransform { get; set; }
+    public SpriteRenderer[] MySpriteRenderers { get; set; }
 
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
@@ -83,13 +87,6 @@ public class PlayerController : Character
     {
         Initialize();
         base.Start();
-        VFXCharge.SetActive(false);
-        MyAnimator = GetComponent<Animator>();
-        MyTransform = GetComponent<Transform>();
-        StartPosition = GetComponent<Transform>();
-        MyRigidBody2D = GetComponent<Rigidbody2D>();
-        FreezeControls = false;
-        Instance.StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
     }
 
 
@@ -113,6 +110,8 @@ public class PlayerController : Character
 
     public override void Initialize()
     {
+        Instance.Health = Instance.healthStat.MaxHp;
+        Instance.healthStat.CurrentHp = Instance.Health;
         healthStat.Initialize();
         InitializeStat(Instance.clawsStat, Instance.Claws);
         InitializeStat(Instance.hornsStat, Instance.Horns);
@@ -123,6 +122,14 @@ public class PlayerController : Character
         RandomCharacterTraitSelection();
         Instance.VFXCharge.SetActive(false);
         Instance.VFXClaw.SetActive(false);
+        VFXCharge.SetActive(false);
+        MyAnimator = GetComponent<Animator>();
+        MyTransform = GetComponent<Transform>();
+        StartPosition = GetComponent<Transform>();
+        MyRigidBody2D = GetComponent<Rigidbody2D>();
+        MySpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        FreezeControls = false;
+        Instance.StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
     }
 
     // Will handle the top down movement of the player
@@ -326,18 +333,51 @@ public class PlayerController : Character
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       
-    }
+        if (collision.tag == "Mob" || collision.tag == "Sneaky" || collision.tag == "Fishy")
+        {
+            StartCoroutine(TakeDamage(collision));
+        }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        
     }
 
     // when the player dies
     public override void Death()
     {
-        //Initialize();
+        if (Instance.Health <= 0)
+        {
+            Initialize();
+        }
+    }
+
+    private IEnumerator IndicateImmortal()
+    {
+        while (immortal)
+        {
+            foreach (SpriteRenderer sprite in MySpriteRenderers) { sprite.enabled = false; }
+            yield return new WaitForSeconds(.1f);
+            foreach (SpriteRenderer sprite in MySpriteRenderers) { sprite.enabled = true; }
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    private IEnumerator TakeDamage(Collider2D collision)
+    {
+        if (!immortal && Instance.isCharging == false)
+        {
+            Instance.Health -= collision.GetComponent<MeleeAI>().Damage;
+            Instance.healthStat.CurrentHp = Instance.Health;
+            if (Instance.Health > 0)
+            {
+                immortal = true;
+                StartCoroutine(IndicateImmortal());
+                yield return new WaitForSeconds(1);
+                immortal = false;
+            }
+            else
+            {
+                Death();
+            }
+        }
     }
 
     // Randomly selects a character trait for the player
@@ -361,6 +401,9 @@ public class PlayerController : Character
                 Instance.SpikeObject.SetActive(false);
                 Instance.VFXSpike.SetActive(false);
                 Instance.Claws = 0;
+                Instance.ClawsLevel = 1;
+                Instance.HornsLevel = 0;
+                Instance.SpikeLevel = 0;
                 break;
             case 2:
                 Instance.HasHorns = true;
@@ -373,6 +416,9 @@ public class PlayerController : Character
                 Instance.SpikeObject.SetActive(false);
                 Instance.VFXSpike.SetActive(false);
                 Instance.Horns = 0;
+                Instance.HornsLevel = 1;
+                Instance.SpikeLevel = 0;
+                Instance.ClawsLevel = 0;
                 break;
             case 3:
                 Instance.HasSpikes = true;
@@ -385,6 +431,9 @@ public class PlayerController : Character
                 Instance.RightClaw.SetActive(false);
                 Instance.SpikeObject.SetActive(true);
                 Instance.Spike = 0;
+                Instance.SpikeLevel = 1;
+                Instance.HornsLevel = 0;
+                Instance.ClawsLevel = 0;
                 break;
             default:
                 Instance.HasClaws = true;
@@ -397,6 +446,9 @@ public class PlayerController : Character
                 Instance.SpikeObject.SetActive(false);
                 Instance.VFXSpike.SetActive(false);
                 Instance.Claws = 0;
+                Instance.ClawsLevel = 1;
+                Instance.HornsLevel = 0;
+                Instance.SpikeLevel = 0;
                 break;
         }
       
@@ -465,6 +517,7 @@ public class PlayerController : Character
             {
                 currentChargeTime = initialChargeTime;
                 isCharging = false;
+                immortal = false;
             }
         }
     }
