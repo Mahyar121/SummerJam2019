@@ -335,9 +335,11 @@ public class PlayerController : Character
     {
         if (collision.tag == "Mob" || collision.tag == "Sneaky" || collision.tag == "Fishy")
         {
-            StartCoroutine(TakeDamage(collision));
+            if (!collision.IsTouching(VFXClaw.GetComponent<BoxCollider2D>()) || !collision.IsTouching(VFXSpike.GetComponent<BoxCollider2D>()))
+            {
+                StartCoroutine(TakeDamage(collision));
+            }
         }
-
     }
 
     // when the player dies

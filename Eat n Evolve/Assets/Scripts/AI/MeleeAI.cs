@@ -5,8 +5,8 @@ using UnityEngine;
 public class MeleeAI : Character
 {
 
-    [SerializeField] private EdgeCollider2D meleeAttackCollider;
-    [SerializeField] private float meleeRange = 50f;
+
+    [SerializeField] private float meleeRange = 5f;
     [SerializeField] private GameObject foodObject;
 
     public SpriteRenderer EnemySpriteRenderer { get; set; }
@@ -35,7 +35,11 @@ public class MeleeAI : Character
     private float idleDuration;
     private float movingTimer;
     private float movingDuration;
+    private float attackTimer;
+    private float attackCooldown = 2;
+    private bool canAttack = true;
     private Vector2 randomDirection;
+    private EdgeCollider2D meleeAttackCollider;
     bool isMoving;
     bool isIdle;
 
@@ -45,7 +49,8 @@ public class MeleeAI : Character
         {
             if (Target != null)
             {
-                return Vector2.Distance(transform.position, Target.transform.position) <= meleeRange;
+                Debug.Log("Distance: " + Vector3.Distance(transform.position, Target.transform.position));
+                return Vector3.Distance(transform.position, Target.transform.position) <= meleeRange;
             }
             return false;
         }
@@ -56,6 +61,7 @@ public class MeleeAI : Character
     public override void Start()
     {
         base.Start();
+        meleeAttackCollider = GetComponent<EdgeCollider2D>();
         foodObject.SetActive(false);
         randomDirection = new Vector2(0, 0);
         MyRigidbody2D = GetComponent<Rigidbody2D>();
@@ -68,10 +74,10 @@ public class MeleeAI : Character
         wanderTimerMax = 1;
         idleTimer = 0;
         // idle timer before it decides to mvoe again
-        idleDuration = Random.Range(1, 5);
+        idleDuration = Random.Range(1, 10);
         movingTimer = 0;
         // moving timer before it changes direction
-        movingDuration = Random.Range(1, 5);
+        movingDuration = Random.Range(1, 10);
     }
 
     private void Update()
@@ -80,16 +86,15 @@ public class MeleeAI : Character
         {
             if (Target == null)
             {
+
                 ChangeBetweenIdleAndWanderState();
                 Wander();
             }
-            else if (Target != null)
+            else if (Target != null && InMeleeRange)
             {
-                // Move to Player
-                if (InMeleeRange)
-                {
-                    // Attack Player
-                }
+                    Debug.Log("In melee range");
+                    MoveToPlayer();
+                    Attack();
             }
         }
         else
@@ -119,8 +124,8 @@ public class MeleeAI : Character
                 }
             }
             // Movement
-            float velocityX = randomDirection.x * Time.deltaTime * movementSpeed;
-            float velocityY = randomDirection.y * Time.deltaTime * movementSpeed;
+            float velocityX = randomDirection.x * Time.smoothDeltaTime * movementSpeed;
+            float velocityY = randomDirection.y * Time.smoothDeltaTime * movementSpeed;
             MyRigidbody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position); 
         }
 
@@ -228,6 +233,7 @@ public class MeleeAI : Character
             BoxCollider2D[] boxColliders = GetComponents<BoxCollider2D>();
             foreach(BoxCollider2D box in boxColliders) { box.enabled = false; }
             GetComponent<SpriteRenderer>().enabled = false;
+            MyRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
             foodObject.SetActive(true);
         }
     }
@@ -238,16 +244,28 @@ public class MeleeAI : Character
         MyAnimator = GetComponent<Animator>();
     }
 
-    //private void LookAtTarget() // ENEMY SIGHT
-    //{
-    //    if (Target != null)
-    //    {
-    //        float xDir = Target.transform.position.x - transform.position.x;
-    //        if (xDir > 0 && facingRight || xDir < 0 && !facingRight)
-    //        {
-    //            ChangeDirection();
-    //        }
-    //    }
-    //}
+    private void MoveToPlayer()
+    {
+        Debug.Log("Moving to Player");
+        Vector3 directionOfCharacter = Target.transform.position - transform.position;
+        directionOfCharacter = directionOfCharacter.normalized;
+        Debug.Log(directionOfCharacter);
+        MyRigidbody2D.AddForceAtPosition(directionOfCharacter, transform.position);
+    }
+
+    private void Attack()
+    {
+        attackTimer += Time.smoothDeltaTime;
+        if (attackTimer >= attackCooldown)
+        {
+            attackTimer = 0;
+        }
+        if (canAttack)
+        {
+            canAttack = false;
+            // once there is attack animation -> Animator.SetTrigger("attack");
+        }
+       
+    }
 
 }
