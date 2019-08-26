@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class MeleeMobSight : MonoBehaviour
 {
-    [SerializeField] private MeleeAI meleeAI;
+    private MeleeAI meleeAI;
+
+    private void Start()
+    {
+        meleeAI = GetComponentInParent<MeleeAI>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
