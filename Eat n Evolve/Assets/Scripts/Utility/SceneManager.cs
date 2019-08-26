@@ -53,6 +53,7 @@ public class SceneManager : MonoBehaviour
     {
         RandomizePlayerSpawn();
         RandomizeZoneLocations();
+        RandomizeEnemySpawns();
     }
 
     public Transform RandomizePlayerSpawn()
@@ -80,7 +81,33 @@ public class SceneManager : MonoBehaviour
         {
             zones[i].transform.position = quadrants[i].transform.position;
         }
-        
+    }
+
+    private void RandomizeEnemySpawns()
+    {
+        foreach(Transform fishySpawn in fishySpawns)
+        {
+            int randomFishy = Random.Range(0, 3);
+            if (randomFishy == 0) { Instantiate(PricklePrish, fishySpawn.transform); }
+            if (randomFishy == 1) { Instantiate(Hornfin, fishySpawn.transform); }
+            if (randomFishy == 2) { Instantiate(Scrashark, fishySpawn.transform); }
+        }
+
+        foreach (Transform sneakySpawn in sneakySpawns)
+        {
+            int randomSneaky = Random.Range(0, 3);
+            if (randomSneaky == 0) { Instantiate(SneakyPrickle, sneakySpawn.transform); }
+            if (randomSneaky == 1) { Instantiate(Hornshrub, sneakySpawn.transform); }
+            if (randomSneaky == 2) { Instantiate(Scrachthorn, sneakySpawn.transform); }
+        }
+
+        foreach (Transform generalEnemySpawn in generalEnemySpawns)
+        {
+            int randomGeneralEnemy = Random.Range(0, 3);
+            if (randomGeneralEnemy == 0) { Instantiate(PricklePrickle, generalEnemySpawn.transform); }
+            if (randomGeneralEnemy == 1) { Instantiate(HornJoe, generalEnemySpawn.transform); }
+            if (randomGeneralEnemy == 2) { Instantiate(Scrattach, generalEnemySpawn.transform); }
+        }
 
     }
 
