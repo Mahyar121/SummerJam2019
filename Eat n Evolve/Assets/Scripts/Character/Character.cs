@@ -17,21 +17,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float hornsLevel = 0;
     [SerializeField] protected float spike = 0;
     [SerializeField] protected float spikeLevel = 0;
-    [SerializeField] protected float scenty = 0;
-    [SerializeField] protected float scentyLevel = 0;
     [SerializeField] protected float fishy = 0;
     [SerializeField] protected float fishyLevel = 0;
-    [SerializeField] protected float stinky = 0;
-    [SerializeField] protected float stinkyLevel = 0;
     [SerializeField] protected float sneaky = 0;
     [SerializeField] protected float sneakyLevel = 0;
 
-    public Animator MyAnimator { get; set; }
-    public Rigidbody2D MyRigidBody2D { get; set; }
-    public Transform MyTransform { get; set; }
-    public SpriteRenderer MySpriteRender { get; set; }
-    public BoxCollider2D MyBoxColliderTrigger2D { get; set; }
-    public BoxCollider2D MyBoxCollider2D { get; set; }
     public abstract void Death();
     public abstract void Initialize();
 

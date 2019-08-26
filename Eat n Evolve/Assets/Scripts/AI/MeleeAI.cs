@@ -7,15 +7,28 @@ public class MeleeAI : Character
 
     [SerializeField] private EdgeCollider2D meleeAttackCollider;
     [SerializeField] private float meleeRange = 50f;
+    [SerializeField] private GameObject foodObject;
 
     public SpriteRenderer EnemySpriteRenderer { get; set; }
     public GameObject Target { get; set; }
-    public Rigidbody2D MyRigidbody { get; set; }
+    public Rigidbody2D MyRigidbody2D { get; set; }
     public Animator MyAnimator { get; set; }
     public EdgeCollider2D MeleeAttackCollider { get { return meleeAttackCollider; } }
     public bool Attack { get; set; }
     public bool TakingDamage { get; set; }
     public bool IsDead {  get { return health <= 0; } }
+    public float Damage { get { return damage; } }
+    public float Health { get { return health; } set { health = value; } }
+    public float Claws { get { return claws; } set { claws = value; } }
+    public float ClawsLevel { get { return clawsLevel; } set { clawsLevel = value; } }
+    public float Horns { get { return horns; } set { horns = value; } }
+    public float HornsLevel { get { return hornsLevel; } set { hornsLevel = value; } }
+    public float Spike { get { return spike; } set { spike = value; } }
+    public float SpikeLevel { get { return spikeLevel; } set { spikeLevel = value; } }
+    public float Fishy { get { return fishy; } set { fishy = value; } }
+    public float FishyLevel { get { return fishyLevel; } set { fishyLevel = value; } }
+    public float Sneaky { get { return sneaky; } set { sneaky = value; } }
+    public float SneakyLevel { get { return sneakyLevel; } set { sneakyLevel = value; } }
 
     private float wanderTimer;
     private float wanderTimerSpeed;
@@ -46,8 +59,9 @@ public class MeleeAI : Character
     public override void Start()
     {
         base.Start();
+        foodObject.SetActive(false);
         randomDirection = new Vector2(0, 0);
-        MyRigidBody2D = GetComponent<Rigidbody2D>();
+        MyRigidbody2D = GetComponent<Rigidbody2D>();
         isIdle = true;
         isMoving = false;
         TakingDamage = false;
@@ -68,11 +82,15 @@ public class MeleeAI : Character
     {
         if (!IsDead)
         {
-            if (!TakingDamage)
+            if (!TakingDamage && InMeleeRange == false)
             {
                 ChangeState();
                 Wander();
             }
+        }
+        else
+        {
+            Death();
         }
     }
 
@@ -99,8 +117,7 @@ public class MeleeAI : Character
             // Movement
             float velocityX = randomDirection.x * Time.deltaTime * movementSpeed;
             float velocityY = randomDirection.y * Time.deltaTime * movementSpeed;
-            Vector3 direction = new Vector3(velocityX, velocityY, 0) - transform.position;
-            MyRigidBody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position); 
+            MyRigidbody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position); 
         }
 
 
@@ -130,7 +147,6 @@ public class MeleeAI : Character
                 movingTimer = 0;
             }
         }
-
     }
 
     // Randomizes direction AI goes
@@ -192,15 +208,24 @@ public class MeleeAI : Character
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "PlayerAttack" && IsDead == false)
         {
+            Debug.Log("CurrentHP Before Damage: " + health);
             Debug.Log("I took " + PlayerController.Instance.Damage);
+            health -= PlayerController.Instance.Damage;
+            Debug.Log("CurrentHP After Damage: " + health);
         }
     }
 
     public override void Death()
     {
-
+        if (health <= 0)
+        {
+            BoxCollider2D[] boxColliders = GetComponents<BoxCollider2D>();
+            foreach(BoxCollider2D box in boxColliders) { box.enabled = false; }
+            GetComponent<SpriteRenderer>().enabled = false;
+            foodObject.SetActive(true);
+        }
     }
 
     public override void Initialize()
@@ -208,5 +233,17 @@ public class MeleeAI : Character
         EnemySpriteRenderer = GetComponent<SpriteRenderer>();
         MyAnimator = GetComponent<Animator>();
     }
+
+    //private void LookAtTarget() // ENEMY SIGHT
+    //{
+    //    if (Target != null)
+    //    {
+    //        float xDir = Target.transform.position.x - transform.position.x;
+    //        if (xDir > 0 && facingRight || xDir < 0 && !facingRight)
+    //        {
+    //            ChangeDirection();
+    //        }
+    //    }
+    //}
 
 }

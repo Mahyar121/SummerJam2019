@@ -8,12 +8,10 @@ public class PlayerController : Character
     // Player Attributes
     [SerializeField] private HealthStat healthStat;
     [SerializeField] public Stat clawsStat;
-    [SerializeField] private Stat hornsStat;
-    [SerializeField] private Stat spikeStat;
-    [SerializeField] private Stat scentyStat;
-    [SerializeField] private Stat fishyStat;
-    [SerializeField] private Stat stinkyStat;
-    [SerializeField] private Stat sneakyStat;
+    [SerializeField] public Stat hornsStat;
+    [SerializeField] public Stat spikeStat;
+    [SerializeField] public Stat fishyStat;
+    [SerializeField] public Stat sneakyStat;
     // Objects for Horns
     [SerializeField] public GameObject HornsObject;
     [SerializeField] public GameObject VFXCharge;
@@ -60,14 +58,13 @@ public class PlayerController : Character
     public float HornsLevel { get { return hornsLevel; } set { hornsLevel = value; } }
     public float Spike { get { return spike; } set { spike = value; } }
     public float SpikeLevel { get { return spikeLevel; } set { spikeLevel = value; } }
-    public float Scenty { get { return scenty; } set { scenty = value; } }
-    public float ScentyLevel { get { return scentyLevel; } set { scentyLevel = value; } }
     public float Fishy { get { return fishy; } set { fishy = value; } }
     public float FishyLevel { get { return fishyLevel; } set { fishyLevel = value; } }
-    public float Stinky { get { return stinky; } set { stinky = value; } }
-    public float StinkyLevel { get { return stinkyLevel; } set { stinkyLevel = value; } }
     public float Sneaky { get { return sneaky; } set { sneaky = value; } }
     public float SneakyLevel { get { return sneakyLevel; } set { sneakyLevel = value; } }
+    public Animator MyAnimator { get; set; }
+    public Rigidbody2D MyRigidBody2D { get; set; }
+    public Transform MyTransform { get; set; }
 
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
@@ -104,7 +101,7 @@ public class PlayerController : Character
         HandleChargingCooldown();
         HandleClawingCooldown();
         HandleImpalingCooldown();
-        //PlayerTraitLevelerHandler();
+        PlayerTraitLevelerHandler();
 
     }
 
@@ -120,9 +117,7 @@ public class PlayerController : Character
         InitializeStat(Instance.clawsStat, Instance.Claws);
         InitializeStat(Instance.hornsStat, Instance.Horns);
         InitializeStat(Instance.spikeStat, Instance.Spike);
-        InitializeStat(Instance.scentyStat, Instance.Scenty);
         InitializeStat(Instance.fishyStat, Instance.Fishy);
-        InitializeStat(Instance.stinkyStat, Instance.Stinky);
         InitializeStat(Instance.sneakyStat, Instance.Sneaky);
         MyTransform = Instance.StartPosition;
         RandomCharacterTraitSelection();
@@ -365,6 +360,7 @@ public class PlayerController : Character
                 Instance.RightClaw.SetActive(true);
                 Instance.SpikeObject.SetActive(false);
                 Instance.VFXSpike.SetActive(false);
+                Instance.Claws = 0;
                 break;
             case 2:
                 Instance.HasHorns = true;
@@ -376,6 +372,7 @@ public class PlayerController : Character
                 Instance.RightClaw.SetActive(false);
                 Instance.SpikeObject.SetActive(false);
                 Instance.VFXSpike.SetActive(false);
+                Instance.Horns = 0;
                 break;
             case 3:
                 Instance.HasSpikes = true;
@@ -387,6 +384,7 @@ public class PlayerController : Character
                 Instance.LeftClaw.SetActive(false);
                 Instance.RightClaw.SetActive(false);
                 Instance.SpikeObject.SetActive(true);
+                Instance.Spike = 0;
                 break;
             default:
                 Instance.HasClaws = true;
@@ -398,6 +396,7 @@ public class PlayerController : Character
                 Instance.RightClaw.SetActive(true);
                 Instance.SpikeObject.SetActive(false);
                 Instance.VFXSpike.SetActive(false);
+                Instance.Claws = 0;
                 break;
         }
       
@@ -408,6 +407,7 @@ public class PlayerController : Character
         if (Instance.Claws >= epRequired && Instance.ClawsLevel != 3)
         {
             Instance.Claws = 0;
+            Instance.clawsStat.CurrentStatValue = Instance.Claws;
             InitializeStat(Instance.clawsStat, Instance.Claws);
             Instance.ClawsLevel++;
             UpdateCharacterStats();
@@ -415,6 +415,7 @@ public class PlayerController : Character
         if (Instance.Horns >= epRequired && Instance.HornsLevel != 3)
         {
             Instance.Horns = 0;
+            Instance.hornsStat.CurrentStatValue = Instance.Horns;
             InitializeStat(Instance.hornsStat, Instance.Horns);
             Instance.HornsLevel++;
             UpdateCharacterStats();
@@ -422,34 +423,23 @@ public class PlayerController : Character
         if (Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
         {
             Instance.Spike = 0;
+            Instance.spikeStat.CurrentStatValue = Instance.Spike;
             InitializeStat(Instance.spikeStat, Instance.Spike);
             Instance.SpikeLevel++;
-            UpdateCharacterStats();
-        }
-        if (Instance.Scenty >= epRequired && Instance.ScentyLevel !=3)
-        {
-            Instance.Scenty = 0;
-            InitializeStat(Instance.scentyStat, Instance.Scenty);
-            Instance.ScentyLevel++;
             UpdateCharacterStats();
         }
         if (Instance.Fishy >= epRequired && Instance.FishyLevel !=3)
         {
             Instance.Fishy = 0;
+            Instance.fishyStat.CurrentStatValue = Instance.Fishy;
             InitializeStat(Instance.fishyStat, Instance.Fishy);
             Instance.FishyLevel++;
-            UpdateCharacterStats();
-        }
-        if (Instance.Stinky >= epRequired && Instance.StinkyLevel !=3)
-        {
-            Instance.Stinky = 0;
-            InitializeStat(Instance.stinkyStat, Instance.Stinky);
-            Instance.StinkyLevel++;
             UpdateCharacterStats();
         }
         if (Instance.Sneaky >= epRequired && Instance.SneakyLevel !=3)
         {
             Instance.Sneaky = 0;
+            Instance.sneakyStat.CurrentStatValue = Instance.Sneaky;
             InitializeStat(Instance.sneakyStat, Instance.Sneaky);
             Instance.SneakyLevel++;
             UpdateCharacterStats();
