@@ -608,14 +608,6 @@ AnimationClip:
     path: Left Foot
     classID: 212
     script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: -714754316235663803, guid: ffb58c13c044984489145341fcc52461,
-        type: 3}
-    attribute: m_Sprite
-    path: Body
-    classID: 212
-    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -764,13 +756,6 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 2073732236
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
       path: 1232897877
       attribute: 1
       script: {fileID: 0}
@@ -855,7 +840,6 @@ AnimationClip:
     - {fileID: -4345703431218662951, guid: ffb58c13c044984489145341fcc52461, type: 3}
     - {fileID: -1727481267514661346, guid: ffb58c13c044984489145341fcc52461, type: 3}
     - {fileID: 8459021382079265424, guid: ffb58c13c044984489145341fcc52461, type: 3}
-    - {fileID: -714754316235663803, guid: ffb58c13c044984489145341fcc52461, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

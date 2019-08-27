@@ -598,7 +598,7 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -714754316235663803, guid: ffb58c13c044984489145341fcc52461,
+      value: {fileID: -5659585110220059936, guid: 3f629f5ff526f1f4192a883f2067b2ad,
         type: 3}
     attribute: m_Sprite
     path: Body
@@ -915,7 +915,7 @@ AnimationClip:
     - {fileID: -4345703431218662951, guid: ffb58c13c044984489145341fcc52461, type: 3}
     - {fileID: -1727481267514661346, guid: ffb58c13c044984489145341fcc52461, type: 3}
     - {fileID: 8459021382079265424, guid: ffb58c13c044984489145341fcc52461, type: 3}
-    - {fileID: -714754316235663803, guid: ffb58c13c044984489145341fcc52461, type: 3}
+    - {fileID: -5659585110220059936, guid: 3f629f5ff526f1f4192a883f2067b2ad, type: 3}
     - {fileID: -7651137175608376795, guid: ffb58c13c044984489145341fcc52461, type: 3}
     - {fileID: -1907416274996828579, guid: ffb58c13c044984489145341fcc52461, type: 3}
   m_AnimationClipSettings:
