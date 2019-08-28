@@ -35,6 +35,11 @@ public class SceneManager : MonoBehaviour
     // Manages the player's evolutionPoints
     [SerializeField] private int evolutionPoints = 0;
 
+    //repawner veriables
+    bool spawnCooldownTrue;
+    float currentSpawnmingtime = 30f;
+    public int EnemyCount { get; set; }
+
     // Creates a singleton of the SceneManager since we only need one unique instance
     private static SceneManager instance;
     public static SceneManager Instance
@@ -51,16 +56,16 @@ public class SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       // RandomizeZoneLocations();
         RandomizePlayerSpawn();
-        RandomizeZoneLocations();
         RandomizeEnemySpawns();
+        spawnCooldownTrue = true;
+        Instance.EnemyCount = 0;
     }
 
-    public Transform RandomizePlayerSpawn()
+    private void Update()
     {
-        int randomSpawn = Random.Range(0, playerSpawns.Count);
-        return playerSpawns[randomSpawn];
-
+        RespawnCooldown();
     }
 
     public void RandomizeZoneLocations()
@@ -83,33 +88,103 @@ public class SceneManager : MonoBehaviour
         }
     }
 
+    public Transform RandomizePlayerSpawn()
+    {
+        int randomSpawn = Random.Range(0, playerSpawns.Count);
+        return playerSpawns[randomSpawn];
+
+    }
+
     private void RandomizeEnemySpawns()
     {
         foreach(Transform fishySpawn in fishySpawns)
         {
             int randomFishy = Random.Range(0, 3);
-            if (randomFishy == 0) { Instantiate(PricklePrish, fishySpawn.transform); }
-            if (randomFishy == 1) { Instantiate(Hornfin, fishySpawn.transform); }
-            if (randomFishy == 2) { Instantiate(Scrashark, fishySpawn.transform); }
+            if (randomFishy == 0)
+            {
+                Instantiate(PricklePrish, fishySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            if (randomFishy == 1)
+            {
+                Instantiate(Hornfin, fishySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            if (randomFishy == 2)
+            {
+                Instantiate(Scrashark, fishySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            //Instance.EnemyCount++;
         }
 
         foreach (Transform sneakySpawn in sneakySpawns)
         {
             int randomSneaky = Random.Range(0, 3);
-            if (randomSneaky == 0) { Instantiate(SneakyPrickle, sneakySpawn.transform); }
-            if (randomSneaky == 1) { Instantiate(Hornshrub, sneakySpawn.transform); }
-            if (randomSneaky == 2) { Instantiate(Scrachthorn, sneakySpawn.transform); }
+            if (randomSneaky == 0)
+            {
+                Instantiate(SneakyPrickle, sneakySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            if (randomSneaky == 1)
+            {
+                Instantiate(Hornshrub, sneakySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            if (randomSneaky == 2)
+            {
+                Instantiate(Scrachthorn, sneakySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            //Instance.EnemyCount++;
         }
 
         foreach (Transform generalEnemySpawn in generalEnemySpawns)
         {
             int randomGeneralEnemy = Random.Range(0, 3);
-            if (randomGeneralEnemy == 0) { Instantiate(PricklePrickle, generalEnemySpawn.transform); }
-            if (randomGeneralEnemy == 1) { Instantiate(HornJoe, generalEnemySpawn.transform); }
-            if (randomGeneralEnemy == 2) { Instantiate(Scrattach, generalEnemySpawn.transform); }
+            if (randomGeneralEnemy == 0)
+            {
+                Instantiate(PricklePrickle, generalEnemySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            if (randomGeneralEnemy == 1)
+            {
+                Instantiate(HornJoe, generalEnemySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            if (randomGeneralEnemy == 2)
+            {
+                Instantiate(Scrattach, generalEnemySpawn.transform);
+                Instance.EnemyCount++;
+            }
+            //Instance.EnemyCount++;
         }
 
     }
+
+   
+    private void RespawnCooldown()
+    {
+        if (Instance.EnemyCount <=20 && spawnCooldownTrue)
+        {
+            if (currentSpawnmingtime > 0)
+            {
+                currentSpawnmingtime -= Time.deltaTime;
+            }
+            else if (currentSpawnmingtime <= 0)
+            {
+                currentSpawnmingtime = 30;
+                spawnCooldownTrue = false;
+            }
+        }
+        else if (Instance.EnemyCount <= 20 && !spawnCooldownTrue)
+        {
+            RandomizeEnemySpawns();
+            spawnCooldownTrue = true;
+        }
+    }
+
+    
 
 
 }

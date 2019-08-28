@@ -38,7 +38,9 @@ public class FoodController : MonoBehaviour
             PlayerController.Instance.fishyStat.CurrentStatValue = PlayerController.Instance.Fishy;
             PlayerController.Instance.Sneaky += sneaky;
             PlayerController.Instance.sneakyStat.CurrentStatValue = PlayerController.Instance.Sneaky;
+            SceneManager.Instance.EnemyCount--;
             Destroy(transform.parent.gameObject);
         }
     }
 }
+// Use if statments with tags to decrement the correct thing. 

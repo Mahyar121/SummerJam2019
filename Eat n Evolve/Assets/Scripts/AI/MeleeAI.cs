@@ -232,9 +232,12 @@ public class MeleeAI : Character
         {
             BoxCollider2D[] boxColliders = GetComponents<BoxCollider2D>();
             foreach(BoxCollider2D box in boxColliders) { box.enabled = false; }
+            SpriteRenderer[] MySpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+            foreach (SpriteRenderer sprite in MySpriteRenderers) { sprite.enabled = false; }
             GetComponent<SpriteRenderer>().enabled = false;
             MyRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
             foodObject.SetActive(true);
+            foodObject.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 
@@ -259,6 +262,7 @@ public class MeleeAI : Character
         if (attackTimer >= attackCooldown)
         {
             attackTimer = 0;
+            canAttack = true;
         }
         if (canAttack)
         {
