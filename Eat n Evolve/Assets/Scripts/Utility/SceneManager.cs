@@ -37,7 +37,7 @@ public class SceneManager : MonoBehaviour
 
     //repawner veriables
     bool spawnCooldownTrue;
-    float currentSpawnmingtime = 30f;
+    float currentSpawnmingtime = 30000f;
     public int EnemyCount { get; set; }
 
     // Creates a singleton of the SceneManager since we only need one unique instance

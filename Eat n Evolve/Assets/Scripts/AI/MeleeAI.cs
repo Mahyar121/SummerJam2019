@@ -43,6 +43,7 @@ public class MeleeAI : Character
     bool isMoving;
     bool isIdle;
 
+
     public bool InMeleeRange
     {
         get
@@ -126,7 +127,9 @@ public class MeleeAI : Character
             // Movement
             float velocityX = randomDirection.x * Time.smoothDeltaTime * movementSpeed;
             float velocityY = randomDirection.y * Time.smoothDeltaTime * movementSpeed;
-            MyRigidbody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position); 
+            MyRigidbody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position);
+            //MyAnimator.SetFloat("SpeedX", velocityX);
+            //MyAnimator.SetFloat("SpeedY", velocityY);
         }
 
 
@@ -167,48 +170,81 @@ public class MeleeAI : Character
         {
             tempVector2.x = 0;
             tempVector2.y = 1;
+            //MyAnimator.SetBool("FacingNorth", true);
+            //MyAnimator.SetBool("FacingSouth", false);
+            //MyAnimator.SetBool("FacingWest", false);
+            //MyAnimator.SetBool("FacingEast", false);
         }
         // Down
         if (movementDirection == 1)
         {
             tempVector2.x = 0;
             tempVector2.y = -1;
+            //MyAnimator.SetBool("FacingWest", false);
+            //MyAnimator.SetBool("FacingNorth", false);
+            //MyAnimator.SetBool("FacingEast", false);
+            //MyAnimator.SetBool("FacingSouth", true);
         }
         // Left
         if (movementDirection == 2)
         {
             tempVector2.x = -1;
             tempVector2.y = 0;
+            //MyAnimator.SetBool("FacingWest", true);
+            //MyAnimator.SetBool("FacingNorth", false);
+            //MyAnimator.SetBool("FacingEast", false);
+            //MyAnimator.SetBool("FacingSouth", false);
+
         }
         // Right
         if (movementDirection == 3)
         {
             tempVector2.x = 1;
             tempVector2.y = 0;
+            //MyAnimator.SetBool("FacingEast", true);
+            //MyAnimator.SetBool("FacingWest", false);
+            //MyAnimator.SetBool("FacingNorth", false);
+            //MyAnimator.SetBool("FacingSouth", false);
         }
         // UpRight
         if (movementDirection == 4)
         {
             tempVector2.x = 1;
             tempVector2.y = 1;
+            //MyAnimator.SetBool("FacingNorth", true);
+            //MyAnimator.SetBool("FacingSouth", false);
+            //MyAnimator.SetBool("FacingWest", false);
+            //MyAnimator.SetBool("FacingEast", false);
         }
         // DownRight
         if (movementDirection == 5)
         {
             tempVector2.x = 1;
             tempVector2.y = -1;
+           //MyAnimator.SetBool("FacingWest", false);
+           //MyAnimator.SetBool("FacingNorth", false);
+           //MyAnimator.SetBool("FacingEast", false);
+           //MyAnimator.SetBool("FacingSouth", true);
         }
         // DownLeft
         if (movementDirection == 6)
         {
             tempVector2.x = -1;
             tempVector2.y = -1;
+           //MyAnimator.SetBool("FacingWest", false);
+           //MyAnimator.SetBool("FacingNorth", false);
+           //MyAnimator.SetBool("FacingEast", false);
+           //MyAnimator.SetBool("FacingSouth", true);
         }
         // UpLeft
         if (movementDirection == 7)
         {
             tempVector2.x = -1;
             tempVector2.y = 1;
+            //MyAnimator.SetBool("FacingNorth", true);
+            //MyAnimator.SetBool("FacingSouth", false);
+            //MyAnimator.SetBool("FacingWest", false);
+            //MyAnimator.SetBool("FacingEast", false);
         }
 
         randomDirection.x = tempVector2.x;
