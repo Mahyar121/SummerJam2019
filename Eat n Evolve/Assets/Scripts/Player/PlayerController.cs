@@ -158,6 +158,7 @@ public class PlayerController : Character
         // Player presses the attack button
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Instance.healthStat.CurrentHp -= 1f;
             // if the player has claws do the claws animation
             if (Instance.HasClaws == true)
             {
@@ -290,42 +291,46 @@ public class PlayerController : Character
         }
         if (Instance.FreezeControls == false)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 MyAnimator.SetBool("FacingNorth", true);
                 MyAnimator.SetBool("FacingSouth", false);
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
+                Instance.healthStat.CurrentHp -= .01f;
 
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
                 MyAnimator.SetBool("FacingNorth", false);
                 MyAnimator.SetBool("FacingSouth", false);
                 MyAnimator.SetBool("FacingWest", true);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
+                Instance.healthStat.CurrentHp -= .01f;
             }
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
                 MyAnimator.SetBool("FacingNorth", false);
                 MyAnimator.SetBool("FacingSouth", true);
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
+                Instance.healthStat.CurrentHp -= .01f;
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
                 MyAnimator.SetBool("FacingNorth", false);
                 MyAnimator.SetBool("FacingSouth", false);
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", true);
                 MyAnimator.SetBool("IsIdle", false);
+                Instance.healthStat.CurrentHp -= .01f;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q))
         {
             RandomCharacterTraitSelection();
         }

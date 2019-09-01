@@ -15,14 +15,14 @@ public class BarController : MonoBehaviour
     {
         set
         {
-            Debug.Log("MaxValue:" + MaxValue);
-            Debug.Log("Before fillAmount: " + fillAmount);
-            Debug.Log("Value:" + value);
+            //Debug.Log("MaxValue:" + MaxValue);
+            //Debug.Log("Before fillAmount: " + fillAmount);
+            //Debug.Log("Value:" + value);
             if (MaxValue != 0)
             {
                 fillAmount = Map(value, 0, MaxValue, 0, 1);
             }
-            Debug.Log("After fillAmount: " + fillAmount);
+            //Debug.Log("After fillAmount: " + fillAmount);
         }
     }
 

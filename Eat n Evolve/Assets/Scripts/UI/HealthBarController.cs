@@ -16,11 +16,11 @@ public class HealthBarController : MonoBehaviour
     {
         set
         {
-            Debug.Log("MaxValue:" + MaxValue);
-            Debug.Log("Before fillAmount: " + fillAmount);
-            Debug.Log("Value:" + value);
+            //Debug.Log("MaxValue:" + MaxValue);
+            //Debug.Log("Before fillAmount: " + fillAmount);
+            //Debug.Log("Value:" + value);
             fillAmount = Map(value, 0, MaxValue, 0, 1);
-            Debug.Log("After fillAmount: " + fillAmount);
+            //Debug.Log("After fillAmount: " + fillAmount);
         }
     }
 
@@ -43,7 +43,7 @@ public class HealthBarController : MonoBehaviour
     // (passed in value, min HP so 0, Max Hp, 0 as min, 1 as max)
     private float Map(float value, float inMin, float inMax, float outMin, float outMax)
     {
-        Debug.Log("Map Value:" + value);
+        //Debug.Log("Map Value:" + value);
         float mapValue = (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
         return mapValue;
     }

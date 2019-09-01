@@ -8,12 +8,21 @@ public class MeleeAI : Character
 
     [SerializeField] private float meleeRange = 5f;
     [SerializeField] private GameObject foodObject;
+    [SerializeField] public GameObject VFXClaw;
+    [SerializeField] public GameObject LeftClaw;
+    [SerializeField] public GameObject RightClaw;
+
+    // Objects for Spikes
+    [SerializeField] public GameObject VFXSpike;
+    [SerializeField] public GameObject SpikeObject;
+    [SerializeField] public GameObject SpikeProjectile;
+    [SerializeField] public GameObject[] SpikeSpawnLocs;
 
     public SpriteRenderer EnemySpriteRenderer { get; set; }
     public GameObject Target { get; set; }
     public Rigidbody2D MyRigidbody2D { get; set; }
     public Animator MyAnimator { get; set; }
-    public bool IsDead {  get { return health <= 0; } }
+    public bool IsDead { get { return health <= 0; } }
     public float Damage { get { return damage; } }
     public float Health { get { return health; } set { health = value; } }
     public float Claws { get { return claws; } set { claws = value; } }
@@ -37,12 +46,16 @@ public class MeleeAI : Character
     private float movingDuration;
     private float attackTimer;
     private float attackCooldown = 2;
+    private bool isImpaling = false;
     private bool canAttack = true;
     private Vector2 randomDirection;
     private EdgeCollider2D meleeAttackCollider;
     bool isMoving;
     bool isIdle;
+    bool fight;
 
+    private float initialImpalingTime = 1f;
+    private float currentImpalingTime;
 
     public bool InMeleeRange
     {
@@ -50,13 +63,14 @@ public class MeleeAI : Character
         {
             if (Target != null)
             {
-                Debug.Log("Distance: " + Vector3.Distance(transform.position, Target.transform.position));
+                //Debug.Log("Distance: " + Vector3.Distance(transform.position, Target.transform.position));
                 return Vector3.Distance(transform.position, Target.transform.position) <= meleeRange;
             }
             return false;
         }
     }
 
+    //public bool 
 
     // Start is called before the first frame update
     public override void Start()
@@ -74,15 +88,26 @@ public class MeleeAI : Character
         wanderTimerState = 0;
         wanderTimerMax = 1;
         idleTimer = 0;
+        VFXClaw.SetActive(false);
         // idle timer before it decides to mvoe again
         idleDuration = Random.Range(1, 10);
         movingTimer = 0;
         // moving timer before it changes direction
         movingDuration = Random.Range(1, 10);
+        EnemySpriteRenderer = GetComponent<SpriteRenderer>();
+        FightorFlight();
+    }
+
+    public override void Initialize() //required for some fucking reason
+    {
     }
 
     private void Update()
     {
+        if (MyAnimator == null)
+        {
+            MyAnimator = GetComponent<Animator>();
+        }
         if (!IsDead)
         {
             if (Target == null)
@@ -91,11 +116,15 @@ public class MeleeAI : Character
                 ChangeBetweenIdleAndWanderState();
                 Wander();
             }
-            else if (Target != null && InMeleeRange)
+            else if (Target != null  && fight == true && InMeleeRange)
             {
-                    Debug.Log("In melee range");
-                    MoveToPlayer();
-                    Attack();
+                MoveToPlayer();
+                Attack();
+              
+            }
+            else if (Target != null && fight == false && InMeleeRange)
+            {
+                MoveAwayPlayer();
             }
         }
         else
@@ -106,7 +135,7 @@ public class MeleeAI : Character
 
     private void Wander()
     {
-        if(wanderTimerState == 0)
+        if (wanderTimerState == 0)
         {
             wanderTimer += 0.1f * Time.deltaTime * wanderTimerSpeed;
             if (wanderTimer >= wanderTimerMax)
@@ -127,12 +156,15 @@ public class MeleeAI : Character
             // Movement
             float velocityX = randomDirection.x * Time.smoothDeltaTime * movementSpeed;
             float velocityY = randomDirection.y * Time.smoothDeltaTime * movementSpeed;
+            //Debug.Log("VelocityX is " + velocityX);
+            //Debug.Log("VelocityY is " + velocityY);
+            if (MyAnimator != null)
+            {
+                MyAnimator.SetFloat("SpeedX", velocityX);
+                MyAnimator.SetFloat("SpeedY", velocityY);
+            }
             MyRigidbody2D.AddForceAtPosition(new Vector3(velocityX, velocityY, 0) * movementSpeed, transform.position);
-            //MyAnimator.SetFloat("SpeedX", velocityX);
-            //MyAnimator.SetFloat("SpeedY", velocityY);
         }
-
-
     }
 
     private void ChangeBetweenIdleAndWanderState()
@@ -142,7 +174,7 @@ public class MeleeAI : Character
             idleTimer += Time.deltaTime;
             if (idleTimer >= idleDuration)
             {
-                Debug.Log("Is Moving Now");
+                //Debug.Log("Is Moving Now");
                 isMoving = true;
                 isIdle = false;
                 idleTimer = 0;
@@ -153,7 +185,7 @@ public class MeleeAI : Character
             movingTimer += Time.deltaTime;
             if (movingTimer >= movingDuration)
             {
-                Debug.Log("Is Idle Now");
+                //Debug.Log("Is Idle Now");
                 isIdle = true;
                 isMoving = false;
                 movingTimer = 0;
@@ -164,36 +196,40 @@ public class MeleeAI : Character
     // Randomizes direction AI goes
     private void RandomizeAIDirection(int movementDirection)
     {
+        if (MyAnimator == null)
+        {
+            return;
+        }
         Vector2 tempVector2 = new Vector2(0, 0);
         // Up
         if (movementDirection == 0)
         {
             tempVector2.x = 0;
             tempVector2.y = 1;
-            //MyAnimator.SetBool("FacingNorth", true);
-            //MyAnimator.SetBool("FacingSouth", false);
-            //MyAnimator.SetBool("FacingWest", false);
-            //MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingNorth", true);
+            MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingEast", false);
         }
         // Down
         if (movementDirection == 1)
         {
             tempVector2.x = 0;
             tempVector2.y = -1;
-            //MyAnimator.SetBool("FacingWest", false);
-            //MyAnimator.SetBool("FacingNorth", false);
-            //MyAnimator.SetBool("FacingEast", false);
-            //MyAnimator.SetBool("FacingSouth", true);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingSouth", true);
         }
         // Left
         if (movementDirection == 2)
         {
             tempVector2.x = -1;
             tempVector2.y = 0;
-            //MyAnimator.SetBool("FacingWest", true);
-            //MyAnimator.SetBool("FacingNorth", false);
-            //MyAnimator.SetBool("FacingEast", false);
-            //MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", true);
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingSouth", false);
 
         }
         // Right
@@ -201,50 +237,50 @@ public class MeleeAI : Character
         {
             tempVector2.x = 1;
             tempVector2.y = 0;
-            //MyAnimator.SetBool("FacingEast", true);
-            //MyAnimator.SetBool("FacingWest", false);
-            //MyAnimator.SetBool("FacingNorth", false);
-            //MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingEast", true);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingSouth", false);
         }
-        // UpRight
+        //UpRight
         if (movementDirection == 4)
         {
             tempVector2.x = 1;
             tempVector2.y = 1;
-            //MyAnimator.SetBool("FacingNorth", true);
-            //MyAnimator.SetBool("FacingSouth", false);
-            //MyAnimator.SetBool("FacingWest", false);
-            //MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingNorth", true);
+            MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingEast", false);
         }
-        // DownRight
+        //DownRight
         if (movementDirection == 5)
         {
             tempVector2.x = 1;
             tempVector2.y = -1;
-           //MyAnimator.SetBool("FacingWest", false);
-           //MyAnimator.SetBool("FacingNorth", false);
-           //MyAnimator.SetBool("FacingEast", false);
-           //MyAnimator.SetBool("FacingSouth", true);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingSouth", true);
         }
-        // DownLeft
+        //DownLeft
         if (movementDirection == 6)
         {
             tempVector2.x = -1;
             tempVector2.y = -1;
-           //MyAnimator.SetBool("FacingWest", false);
-           //MyAnimator.SetBool("FacingNorth", false);
-           //MyAnimator.SetBool("FacingEast", false);
-           //MyAnimator.SetBool("FacingSouth", true);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingNorth", false);
+            MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingSouth", true);
         }
-        // UpLeft
+        //UpLeft
         if (movementDirection == 7)
         {
             tempVector2.x = -1;
             tempVector2.y = 1;
-            //MyAnimator.SetBool("FacingNorth", true);
-            //MyAnimator.SetBool("FacingSouth", false);
-            //MyAnimator.SetBool("FacingWest", false);
-            //MyAnimator.SetBool("FacingEast", false);
+            MyAnimator.SetBool("FacingNorth", true);
+            MyAnimator.SetBool("FacingSouth", false);
+            MyAnimator.SetBool("FacingWest", false);
+            MyAnimator.SetBool("FacingEast", false);
         }
 
         randomDirection.x = tempVector2.x;
@@ -267,7 +303,7 @@ public class MeleeAI : Character
         if (health <= 0)
         {
             BoxCollider2D[] boxColliders = GetComponents<BoxCollider2D>();
-            foreach(BoxCollider2D box in boxColliders) { box.enabled = false; }
+            foreach (BoxCollider2D box in boxColliders) { box.enabled = false; }
             SpriteRenderer[] MySpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
             foreach (SpriteRenderer sprite in MySpriteRenderers) { sprite.enabled = false; }
             GetComponent<SpriteRenderer>().enabled = false;
@@ -277,24 +313,57 @@ public class MeleeAI : Character
         }
     }
 
-    public override void Initialize()
+    public void FightorFlight()
     {
-        EnemySpriteRenderer = GetComponent<SpriteRenderer>();
-        MyAnimator = GetComponent<Animator>();
+        int fightorFlightint = Random.Range(0, 10);
+            if (fightorFlightint >= 5)
+            {
+            fight = true;
+            }
+            else
+            {
+            fight = false;
+            Debug.Log("We should be running");
+            }
     }
 
     private void MoveToPlayer()
     {
-        Debug.Log("Moving to Player");
+         Debug.Log("Moving to");
+            Vector3 directionOfCharacter = Target.transform.position - transform.position;
+            directionOfCharacter = directionOfCharacter.normalized;
+            //Debug.Log(directionOfCharacter);
+            MyRigidbody2D.AddForceAtPosition(directionOfCharacter, transform.position);
+    }
+
+    private void MoveAwayPlayer()
+    {
+        Debug.Log("Moving away from player");
         Vector3 directionOfCharacter = Target.transform.position - transform.position;
         directionOfCharacter = directionOfCharacter.normalized;
-        Debug.Log(directionOfCharacter);
-        MyRigidbody2D.AddForceAtPosition(directionOfCharacter, transform.position);
+        //Debug.Log(directionOfCharacter);
+        MyRigidbody2D.AddForceAtPosition(directionOfCharacter * -1, transform.position);
     }
 
     private void Attack()
     {
         attackTimer += Time.smoothDeltaTime;
+
+        Vector2 directionToPlayer = new Vector2(Target.transform.position.x - transform.position.x, Target.transform.position.y - transform.position.y).normalized;
+
+        Vector3Int truncatedDir = new Vector3Int(Mathf.RoundToInt(directionToPlayer.x), Mathf.RoundToInt(directionToPlayer.y), 0);
+        float localScaleX = 0.5f;
+        float localScaleY = 0.5f;
+        if (directionToPlayer.x < 0)
+        {
+            localScaleX *= -1f;
+        }
+        if (directionToPlayer.y < 0)
+        {
+            localScaleY *= -1f;
+        }
+
+
         if (attackTimer >= attackCooldown)
         {
             attackTimer = 0;
@@ -302,10 +371,36 @@ public class MeleeAI : Character
         }
         if (canAttack)
         {
+
+            //if (isImpaling == false)
+            //{
+            //    isImpaling = true;
+            //    currentImpalingTime = initialImpalingTime;
+            //    foreach (GameObject spikeSpawnLoc in SpikeSpawnLocs)
+            //    {
+            //        spikeSpawnLoc.transform.position = transform.position + spikeSpawnLoc.GetComponent<spikeFollow>().offset;
+            //        Instantiate(SpikeProjectile, transform.position + spikeSpawnLoc.GetComponent<spikeFollow>().offset, Quaternion.identity, transform);
+            //    }
+            //    //Debug.Log("Striked with spikes!");
+            //}
+
             canAttack = false;
+            Debug.Log($"Attack {truncatedDir.x}, {truncatedDir.y}");
+            VFXClaw.transform.position = transform.position + Vector3.Scale(truncatedDir, new Vector3(3f * truncatedDir.x, 3f * truncatedDir.y, 0));
+            //VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 90);
+            //VFXClaw.transform.localScale = new Vector3(localScaleX, localScaleY, 2);
+            
+            attackTimer = 0;
+            VFXClaw.SetActive(true);
+            ParticleSystem test = VFXClaw.GetComponent<ParticleSystem>();
+            if (test != null)
+            {
+                test.Play();
+            }
+            VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
             // once there is attack animation -> Animator.SetTrigger("attack");
         }
-       
+
     }
 
 }

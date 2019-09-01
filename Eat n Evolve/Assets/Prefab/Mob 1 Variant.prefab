@@ -76,16 +76,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 586151548236627429, guid: e7fd74c5e2217084fa1487c2278a5e4e,
-        type: 3}
-      propertyPath: foodObject
-      value: 
-      objectReference: {fileID: 7617031989392996250}
     - target: {fileID: 212643310709369979, guid: e7fd74c5e2217084fa1487c2278a5e4e,
         type: 3}
       propertyPath: m_Name
       value: Mob 1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 586151548236627429, guid: e7fd74c5e2217084fa1487c2278a5e4e,
+        type: 3}
+      propertyPath: foodObject
+      value: 
+      objectReference: {fileID: 7617031989392996250}
     - target: {fileID: 212643310709369976, guid: e7fd74c5e2217084fa1487c2278a5e4e,
         type: 3}
       propertyPath: m_LocalPosition.x

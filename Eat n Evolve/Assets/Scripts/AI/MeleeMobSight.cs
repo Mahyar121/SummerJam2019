@@ -13,7 +13,7 @@ public class MeleeMobSight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player") { meleeAI.Target = collision.gameObject; }
+        if (collision.tag == "Player" && collision.name == "Gobbler") { meleeAI.Target = collision.gameObject; }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
