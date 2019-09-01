@@ -59,13 +59,13 @@ public class SceneManager : MonoBehaviour
        // RandomizeZoneLocations();
         RandomizePlayerSpawn();
         RandomizeEnemySpawns();
-        spawnCooldownTrue = true;
+        //spawnCooldownTrue = true;
         Instance.EnemyCount = 0;
     }
 
     private void Update()
     {
-        RespawnCooldown();
+        //RespawnCooldown();
     }
 
     public void RandomizeZoneLocations()
@@ -163,26 +163,26 @@ public class SceneManager : MonoBehaviour
     }
 
    
-    private void RespawnCooldown()
-    {
-        if (Instance.EnemyCount <=20 && spawnCooldownTrue)
-        {
-            if (currentSpawnmingtime > 0)
-            {
-                currentSpawnmingtime -= Time.deltaTime;
-            }
-            else if (currentSpawnmingtime <= 0)
-            {
-                currentSpawnmingtime = 30;
-                spawnCooldownTrue = false;
-            }
-        }
-        else if (Instance.EnemyCount <= 20 && !spawnCooldownTrue)
-        {
-            RandomizeEnemySpawns();
-            spawnCooldownTrue = true;
-        }
-    }
+    //private void RespawnCooldown()
+    //{
+    //    if (Instance.EnemyCount <=20 && spawnCooldownTrue)
+    //    {
+    //        if (currentSpawnmingtime > 0)
+    //        {
+    //            currentSpawnmingtime -= Time.deltaTime;
+    //        }
+    //        else if (currentSpawnmingtime <= 0)
+    //        {
+    //            currentSpawnmingtime = 30;
+    //            spawnCooldownTrue = false;
+    //        }
+    //    }
+    //    else if (Instance.EnemyCount <= 20 && !spawnCooldownTrue)
+    //    {
+    //        RandomizeEnemySpawns();
+    //        spawnCooldownTrue = true;
+    //    }
+    //}
 
     
 

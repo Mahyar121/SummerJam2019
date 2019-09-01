@@ -47,6 +47,8 @@ public class PlayerController : Character
 
     // If player is immortal take no damage
     private bool immortal = false;
+    // boolean flag to check if player is fishy or not
+    private bool IsFishy { get; set;}
     public bool FreezeControls { get; set; }
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
@@ -69,6 +71,8 @@ public class PlayerController : Character
     public Rigidbody2D MyRigidBody2D { get; set; }
     public Transform MyTransform { get; set; }
     public SpriteRenderer[] MySpriteRenderers { get; set; }
+
+    private GameObject[] waterGameObjects;
 
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
@@ -93,13 +97,11 @@ public class PlayerController : Character
     // Put anything non physics related that needs updating here
     private void Update()
     {
-
         HandleInput();
         HandleChargingCooldown();
         HandleClawingCooldown();
         HandleImpalingCooldown();
         PlayerTraitLevelerHandler();
-
     }
 
     // Put anything physics related that needs updating here
@@ -130,6 +132,11 @@ public class PlayerController : Character
         MySpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         FreezeControls = false;
         Instance.StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
+        Instance.IsFishy = false;
+        // Used to ignore water physics if fishy
+        waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
+        // used to toggle fishy physics and needs to be called after waterGameObjects has a value
+        ToggleFishyPhysics();
     }
 
     // Will handle the top down movement of the player
@@ -353,6 +360,15 @@ public class PlayerController : Character
         if (Instance.Health <= 0)
         {
             Initialize();
+            if (Instance.FishyLevel > 0 && Instance.IsFishy == true)
+            {
+                Instance.IsFishy = false;
+                GameObject[] waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
+                foreach (GameObject water in waterGameObjects)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), false);
+                }
+            }
         }
     }
 
@@ -557,6 +573,26 @@ public class PlayerController : Character
             {
                 currentImpalingTime = initialImpalingTime;
                 isImpaling = false;
+            }
+        }
+    }
+
+    private void ToggleFishyPhysics()
+    {
+        if (Instance.FishyLevel > 0 && Instance.IsFishy == false)
+        {
+            Instance.IsFishy = true;
+            foreach (GameObject water in waterGameObjects)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), true);
+            }
+        }
+        else if (Instance.IsFishy == true)
+        {
+            Instance.IsFishy = false;
+            foreach (GameObject water in waterGameObjects)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), false);
             }
         }
     }
