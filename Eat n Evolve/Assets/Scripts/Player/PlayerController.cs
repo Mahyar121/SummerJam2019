@@ -49,6 +49,7 @@ public class PlayerController : Character
     private bool immortal = false;
     // boolean flag to check if player is fishy or not
     private bool IsFishy { get; set;}
+    private bool IsSneaky { get; set;}
     public bool FreezeControls { get; set; }
     public bool HasClaws { get; set; }
     public bool HasHorns { get; set; }
@@ -73,6 +74,7 @@ public class PlayerController : Character
     public SpriteRenderer[] MySpriteRenderers { get; set; }
 
     private GameObject[] waterGameObjects;
+    private GameObject[] bushGameObjects;
 
 
     // Creates a singleton of the Player so we dont make multiple instances of the player
@@ -103,6 +105,7 @@ public class PlayerController : Character
         HandleImpalingCooldown();
         PlayerTraitLevelerHandler();
         CheckForFishyPhysics();
+        CheckForSneakyPhysics();
     }
 
     // Put anything physics related that needs updating here
@@ -134,8 +137,10 @@ public class PlayerController : Character
         FreezeControls = false;
         Instance.StartPosition.position = SceneManager.Instance.RandomizePlayerSpawn().position;
         Instance.IsFishy = false;
+        Instance.IsSneaky = false;
         // Used to ignore water physics if fishy
         waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
+        bushGameObjects = GameObject.FindGameObjectsWithTag("Bush");
     }
 
     // Will handle the top down movement of the player
@@ -367,6 +372,14 @@ public class PlayerController : Character
                     Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), false);
                 }
             }
+            if (Instance.SneakyLevel > 0 && Instance.IsSneaky == true)
+            {
+                Instance.IsSneaky = false;
+                foreach (GameObject bush in bushGameObjects)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bush.GetComponent<Collider2D>(), false);
+                }
+            }
         }
     }
 
@@ -583,6 +596,18 @@ public class PlayerController : Character
             foreach (GameObject water in waterGameObjects)
             {
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), true);
+            }
+        }
+    }
+
+    private void CheckForSneakyPhysics()
+    {
+        if (Instance.SneakyLevel > 0 && Instance.IsSneaky == false)
+        {
+            Instance.IsSneaky = true;
+            foreach (GameObject bush in bushGameObjects)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), bush.GetComponent<Collider2D>(), true);
             }
         }
     }
