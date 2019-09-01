@@ -102,6 +102,7 @@ public class PlayerController : Character
         HandleClawingCooldown();
         HandleImpalingCooldown();
         PlayerTraitLevelerHandler();
+        CheckForFishyPhysics();
     }
 
     // Put anything physics related that needs updating here
@@ -135,8 +136,6 @@ public class PlayerController : Character
         Instance.IsFishy = false;
         // Used to ignore water physics if fishy
         waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
-        // used to toggle fishy physics and needs to be called after waterGameObjects has a value
-        ToggleFishyPhysics();
     }
 
     // Will handle the top down movement of the player
@@ -363,7 +362,6 @@ public class PlayerController : Character
             if (Instance.FishyLevel > 0 && Instance.IsFishy == true)
             {
                 Instance.IsFishy = false;
-                GameObject[] waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
                 foreach (GameObject water in waterGameObjects)
                 {
                     Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), false);
@@ -577,7 +575,7 @@ public class PlayerController : Character
         }
     }
 
-    private void ToggleFishyPhysics()
+    private void CheckForFishyPhysics()
     {
         if (Instance.FishyLevel > 0 && Instance.IsFishy == false)
         {
@@ -585,14 +583,6 @@ public class PlayerController : Character
             foreach (GameObject water in waterGameObjects)
             {
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), true);
-            }
-        }
-        else if (Instance.IsFishy == true)
-        {
-            Instance.IsFishy = false;
-            foreach (GameObject water in waterGameObjects)
-            {
-                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), water.GetComponent<Collider2D>(), false);
             }
         }
     }
