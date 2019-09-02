@@ -27,6 +27,10 @@ public class PlayerController : Character
     [SerializeField] public GameObject SpikeProjectile;
     [SerializeField] public GameObject[] SpikeSpawnLocs;
     //Objects for Fishy
+    public GameObject RightFoot;
+    public GameObject LeftFoot;
+    public GameObject RightFin;
+    public GameObject LeftFin;
 
     //Score stuff
     public Text scoreText;  // public if you want to drag your text object in there manually
@@ -79,6 +83,8 @@ public class PlayerController : Character
     public Rigidbody2D MyRigidBody2D { get; set; }
     public Transform MyTransform { get; set; }
     public SpriteRenderer[] MySpriteRenderers { get; set; }
+    public SpriteRenderer rightspriterenerer { get; set; }
+    public SpriteRenderer leftspriterenerer { get; set; }
 
     private GameObject[] waterGameObjects;
     private GameObject[] bushGameObjects;
@@ -156,6 +162,8 @@ public class PlayerController : Character
         // Used to ignore water physics if fishy
         waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
         bushGameObjects = GameObject.FindGameObjectsWithTag("Bush");
+        //remove the fuck out of the lower line
+        GainFishyAssets();
     }
 
     // Will handle the top down movement of the player
@@ -405,6 +413,7 @@ public class PlayerController : Character
 
     private IEnumerator IndicateImmortal()
     {
+        //This is resetting the fishy feet
         while (immortal)
         {
             foreach (SpriteRenderer sprite in MySpriteRenderers) { sprite.enabled = false; }
@@ -561,6 +570,13 @@ public class PlayerController : Character
 
     public void GainFishyAssets()
     {
+        rightspriterenerer = RightFoot.GetComponent<SpriteRenderer>();
+        rightspriterenerer.enabled = false;
+        leftspriterenerer = LeftFoot.GetComponent<SpriteRenderer>();
+        leftspriterenerer.enabled = false;
+        RightFin.SetActive(true);
+        LeftFin.SetActive(true);
+
 
     }
 
@@ -639,6 +655,7 @@ public class PlayerController : Character
             scoreCounter = scoreCounter + 5;
             //Debug.Log("scoreincrease");
             SetCountText();
+            GainFishyAssets();
         }
         if (Instance.Sneaky >= epRequired && Instance.SneakyLevel !=3)
         {
