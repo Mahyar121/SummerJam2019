@@ -8,15 +8,15 @@ public class MeleeAI : Character
 
     [SerializeField] private float meleeRange = 5f;
     [SerializeField] private GameObject foodObject;
-    [SerializeField] public GameObject VFXClaw;
+    //[SerializeField] public GameObject VFXClaw;
     [SerializeField] public GameObject LeftClaw;
     [SerializeField] public GameObject RightClaw;
 
     // Objects for Spikes
-    [SerializeField] public GameObject VFXSpike;
-    [SerializeField] public GameObject SpikeObject;
-    [SerializeField] public GameObject SpikeProjectile;
-    [SerializeField] public GameObject[] SpikeSpawnLocs;
+    //[SerializeField] public GameObject VFXSpike;
+    //[SerializeField] public GameObject SpikeObject;
+    //[SerializeField] public GameObject SpikeProjectile;
+    //[SerializeField] public GameObject[] SpikeSpawnLocs;
 
     public SpriteRenderer EnemySpriteRenderer { get; set; }
     public GameObject Target { get; set; }
@@ -88,7 +88,7 @@ public class MeleeAI : Character
         wanderTimerState = 0;
         wanderTimerMax = 1;
         idleTimer = 0;
-        VFXClaw.SetActive(false);
+        //VFXClaw.SetActive(false);
         // idle timer before it decides to mvoe again
         idleDuration = Random.Range(1, 10);
         movingTimer = 0;
@@ -119,7 +119,7 @@ public class MeleeAI : Character
             else if (Target != null  && fight == true && InMeleeRange)
             {
                 MoveToPlayer();
-                Attack();
+                //Attack();
               
             }
             else if (Target != null && fight == false && InMeleeRange)
@@ -384,21 +384,21 @@ public class MeleeAI : Character
             //    //Debug.Log("Striked with spikes!");
             //}
 
-            canAttack = false;
-            Debug.Log($"Attack {truncatedDir.x}, {truncatedDir.y}");
-            VFXClaw.transform.position = transform.position + Vector3.Scale(truncatedDir, new Vector3(3f * truncatedDir.x, 3f * truncatedDir.y, 0));
-            //VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 90);
-            //VFXClaw.transform.localScale = new Vector3(localScaleX, localScaleY, 2);
+    //        //canAttack = false;
+    //        //Debug.Log($"Attack {truncatedDir.x}, {truncatedDir.y}");
+    ///*        VFXClaw.transform.position = transform.position + Vector3.Scale(trunca*/tedDir, new Vector3(3f * truncatedDir.x, 3f * truncatedDir.y, 0));
+    //        ////VFXClaw.transform.localRotation = Quaternion.Euler(0, 0, 90);
+    ///*        //VFXClaw.transform.localScale = new Vector3(localScaleX, localScaleY,*/ 2);
             
-            attackTimer = 0;
-            VFXClaw.SetActive(true);
-            ParticleSystem test = VFXClaw.GetComponent<ParticleSystem>();
-            if (test != null)
-            {
-                test.Play();
-            }
-            VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
-            // once there is attack animation -> Animator.SetTrigger("attack");
+    //        //attackTimer = 0;
+    //        //VFXClaw.SetActive(true);
+    //        //ParticleSystem test = VFXClaw.GetComponent<ParticleSystem>();
+    //        //if (test != null)
+    //        //{
+    //            //test.Play();
+    //        //}
+    //        //VFXClaw.GetComponent<Animator>().SetTrigger("ClawAttack");
+    //        //// once there is attack animation -> Animator.SetTrigger("attack");
         }
 
     }

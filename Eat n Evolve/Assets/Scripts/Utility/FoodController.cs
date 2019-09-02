@@ -38,6 +38,13 @@ public class FoodController : MonoBehaviour
             PlayerController.Instance.fishyStat.CurrentStatValue = PlayerController.Instance.Fishy;
             PlayerController.Instance.Sneaky += sneaky;
             PlayerController.Instance.sneakyStat.CurrentStatValue = PlayerController.Instance.Sneaky;
+            if (PlayerController.Instance.Health <= 100)
+            {
+                PlayerController.Instance.Health += 5f;
+                PlayerController.Instance.healthStat.CurrentHp = PlayerController.Instance.Health;
+            }
+           
+            
             SceneManager.Instance.EnemyCount--;
             Destroy(transform.parent.gameObject);
         }

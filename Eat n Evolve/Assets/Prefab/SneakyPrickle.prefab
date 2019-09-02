@@ -6250,6 +6250,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Food
       objectReference: {fileID: 0}
+    - target: {fileID: 784935670052931552, guid: 75f09915f2196174aa40aa2fbc800ddd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 784935670052931555, guid: 75f09915f2196174aa40aa2fbc800ddd,
         type: 3}
       propertyPath: m_LocalPosition.x

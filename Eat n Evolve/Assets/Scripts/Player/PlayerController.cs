@@ -6,7 +6,7 @@ public class PlayerController : Character
 {
 
     // Player Attributes
-    [SerializeField] private HealthStat healthStat;
+    [SerializeField] public HealthStat healthStat;
     [SerializeField] public Stat clawsStat;
     [SerializeField] public Stat hornsStat;
     [SerializeField] public Stat spikeStat;
