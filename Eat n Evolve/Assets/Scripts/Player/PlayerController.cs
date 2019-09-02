@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//scorestuff
+using UnityEngine.UI;
 
 public class PlayerController : Character
 {
@@ -24,6 +26,11 @@ public class PlayerController : Character
     [SerializeField] public GameObject SpikeObject;
     [SerializeField] public GameObject SpikeProjectile;
     [SerializeField] public GameObject[] SpikeSpawnLocs;
+    //Objects for Fishy
+
+    //Score stuff
+    public Text scoreText;  // public if you want to drag your text object in there manually
+    int scoreCounter;
 
     // Charge logic
     private Vector3 chargeDestination;
@@ -92,6 +99,9 @@ public class PlayerController : Character
     public override void Start()
     {
         Initialize();
+        scoreCounter = 0;
+        SetCountText();
+        //scoreText = GetComponent<Text>();
         base.Start();
     }
 
@@ -106,6 +116,11 @@ public class PlayerController : Character
         PlayerTraitLevelerHandler();
         CheckForFishyPhysics();
         CheckForSneakyPhysics();
+    }
+
+    void SetCountText()
+    {
+        scoreText.text = "Evolution Points: " + scoreCounter.ToString();
     }
 
     // Put anything physics related that needs updating here
@@ -544,6 +559,11 @@ public class PlayerController : Character
         Instance.SpikeLevel = 0;
     }
 
+    public void GainFishyAssets()
+    {
+
+    }
+
     private void PlayerTraitLevelerHandler()
     {
         if (Instance.HasClaws == true && Instance.Claws >= epRequired && Instance.ClawsLevel != 3  )
@@ -553,10 +573,19 @@ public class PlayerController : Character
             InitializeStat(Instance.clawsStat, Instance.Claws);
             Instance.ClawsLevel++;
             UpdateCharacterStats();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.Claws >= epRequired && Instance.ClawsLevel != 3)
         {
+            Instance.Claws = 0;
+            Instance.clawsStat.CurrentStatValue = Instance.Claws;
+            InitializeStat(Instance.clawsStat, Instance.Claws);
             PlayerBecomesScratchy();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.HasHorns == true && Instance.Horns >= epRequired && Instance.HornsLevel != 3)
         {
@@ -565,10 +594,19 @@ public class PlayerController : Character
             InitializeStat(Instance.hornsStat, Instance.Horns);
             Instance.HornsLevel++;
             UpdateCharacterStats();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.Horns >= epRequired && Instance.HornsLevel != 3)
         {
+            Instance.Horns = 0;
+            Instance.hornsStat.CurrentStatValue = Instance.Horns;
+            InitializeStat(Instance.hornsStat, Instance.Horns);
             PlayerBecomesHorney();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.HasSpikes == true && Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
         {
@@ -577,10 +615,19 @@ public class PlayerController : Character
             InitializeStat(Instance.spikeStat, Instance.Spike);
             Instance.SpikeLevel++;
             UpdateCharacterStats();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
         {
+            Instance.Spike = 0;
+            Instance.spikeStat.CurrentStatValue = Instance.Spike;
+            InitializeStat(Instance.spikeStat, Instance.Spike);
             PlayerBecomesSpikey();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.Fishy >= epRequired && Instance.FishyLevel !=3)
         {
@@ -589,6 +636,9 @@ public class PlayerController : Character
             InitializeStat(Instance.fishyStat, Instance.Fishy);
             Instance.FishyLevel++;
             UpdateCharacterStats();
+            scoreCounter = scoreCounter + 5;
+            //Debug.Log("scoreincrease");
+            SetCountText();
         }
         if (Instance.Sneaky >= epRequired && Instance.SneakyLevel !=3)
         {
@@ -597,6 +647,9 @@ public class PlayerController : Character
             InitializeStat(Instance.sneakyStat, Instance.Sneaky);
             Instance.SneakyLevel++;
             UpdateCharacterStats();
+            scoreCounter = scoreCounter + 5;
+            Debug.Log("scoreincrease");
+            SetCountText();
         }
     }
 

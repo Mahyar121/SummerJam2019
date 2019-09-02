@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class FoodController : MonoBehaviour
 {
     // Food EP Stats
@@ -13,6 +14,8 @@ public class FoodController : MonoBehaviour
     // Parent that has EP stats we reading from
     private MeleeAI meleeAI;
 
+  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,8 @@ public class FoodController : MonoBehaviour
         spike = meleeAI.Spike;
         fishy = meleeAI.Fishy;
         sneaky = meleeAI.Sneaky;
+ 
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,11 +48,15 @@ public class FoodController : MonoBehaviour
                 PlayerController.Instance.Health += 5f;
                 PlayerController.Instance.healthStat.CurrentHp = PlayerController.Instance.Health;
             }
-           
-            
+
+
             SceneManager.Instance.EnemyCount--;
             Destroy(transform.parent.gameObject);
         }
     }
+
+
+
+ 
 }
 // Use if statments with tags to decrement the correct thing. 
