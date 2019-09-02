@@ -309,7 +309,9 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.healthStat.CurrentHp -= .01f;
+                //Instance.healthStat.CurrentHp -= .01f;
+                Instance.Health -= .01f;
+                Instance.healthStat.CurrentHp = Instance.Health;
 
             }
             if (Input.GetKey(KeyCode.A))
@@ -319,7 +321,8 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", true);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.healthStat.CurrentHp -= .01f;
+                Instance.Health -= .01f;
+                Instance.healthStat.CurrentHp = Instance.Health;
             }
 
             if (Input.GetKey(KeyCode.S))
@@ -329,7 +332,8 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.healthStat.CurrentHp -= .01f;
+                Instance.Health -= .01f;
+                Instance.healthStat.CurrentHp = Instance.Health;
             }
             if (Input.GetKey(KeyCode.D))
             {
@@ -338,7 +342,8 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", true);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.healthStat.CurrentHp -= .01f;
+                Instance.Health -= .01f;
+                Instance.healthStat.CurrentHp = Instance.Health;
             }
         }
         if (Input.GetKey(KeyCode.Q))
@@ -488,9 +493,60 @@ public class PlayerController : Character
       
     }
 
+    public void PlayerBecomesSpikey()
+    {
+        Instance.HasSpikes = true;
+        Instance.VFXSpike.SetActive(true);
+        Instance.HasHorns = false;
+        Instance.HasClaws = false;
+        Debug.Log("Player got spikes!");
+        Instance.HornsObject.SetActive(false);
+        Instance.LeftClaw.SetActive(false);
+        Instance.RightClaw.SetActive(false);
+        Instance.SpikeObject.SetActive(true);
+        Instance.Spike = 0;
+        Instance.SpikeLevel = 1;
+        Instance.HornsLevel = 0;
+        Instance.ClawsLevel = 0;
+    }
+
+    public void PlayerBecomesHorney()
+    {
+        Instance.HasHorns = true;
+        Instance.HasClaws = false;
+        Instance.HasSpikes = false;
+        Debug.Log("Player got horns!");
+        Instance.HornsObject.SetActive(true);
+        Instance.LeftClaw.SetActive(false);
+        Instance.RightClaw.SetActive(false);
+        Instance.SpikeObject.SetActive(false);
+        Instance.VFXSpike.SetActive(false);
+        Instance.Horns = 0;
+        Instance.HornsLevel = 1;
+        Instance.SpikeLevel = 0;
+        Instance.ClawsLevel = 0;
+    }
+
+    public void PlayerBecomesScratchy()
+    {
+        Instance.HasClaws = true;
+        Instance.HasHorns = false;
+        Instance.HasSpikes = false;
+        Debug.Log("Defaulted the player to claws!");
+        Instance.HornsObject.SetActive(false);
+        Instance.LeftClaw.SetActive(true);
+        Instance.RightClaw.SetActive(true);
+        Instance.SpikeObject.SetActive(false);
+        Instance.VFXSpike.SetActive(false);
+        Instance.Claws = 0;
+        Instance.ClawsLevel = 1;
+        Instance.HornsLevel = 0;
+        Instance.SpikeLevel = 0;
+    }
+
     private void PlayerTraitLevelerHandler()
     {
-        if (Instance.Claws >= epRequired && Instance.ClawsLevel != 3)
+        if (Instance.HasClaws == true && Instance.Claws >= epRequired && Instance.ClawsLevel != 3  )
         {
             Instance.Claws = 0;
             Instance.clawsStat.CurrentStatValue = Instance.Claws;
@@ -498,7 +554,11 @@ public class PlayerController : Character
             Instance.ClawsLevel++;
             UpdateCharacterStats();
         }
-        if (Instance.Horns >= epRequired && Instance.HornsLevel != 3)
+        if (Instance.Claws >= epRequired && Instance.ClawsLevel != 3)
+        {
+            PlayerBecomesScratchy();
+        }
+        if (Instance.HasHorns == true && Instance.Horns >= epRequired && Instance.HornsLevel != 3)
         {
             Instance.Horns = 0;
             Instance.hornsStat.CurrentStatValue = Instance.Horns;
@@ -506,13 +566,21 @@ public class PlayerController : Character
             Instance.HornsLevel++;
             UpdateCharacterStats();
         }
-        if (Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
+        if (Instance.Horns >= epRequired && Instance.HornsLevel != 3)
+        {
+            PlayerBecomesHorney();
+        }
+        if (Instance.HasSpikes == true && Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
         {
             Instance.Spike = 0;
             Instance.spikeStat.CurrentStatValue = Instance.Spike;
             InitializeStat(Instance.spikeStat, Instance.Spike);
             Instance.SpikeLevel++;
             UpdateCharacterStats();
+        }
+        if (Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
+        {
+            PlayerBecomesSpikey();
         }
         if (Instance.Fishy >= epRequired && Instance.FishyLevel !=3)
         {
