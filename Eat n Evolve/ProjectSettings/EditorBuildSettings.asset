@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Mahyar's Dumpster.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Splash.unity
+    guid: 39d14b6843da2444ebc5d8cf21f9296b
+  - enabled: 1
     path: Assets/Scenes/TestBed.unity
     guid: aaa7795db1c8ff34b98a3e7b28de88ad
   m_configObjects: {}
