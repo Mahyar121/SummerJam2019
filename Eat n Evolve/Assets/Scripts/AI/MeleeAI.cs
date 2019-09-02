@@ -95,7 +95,6 @@ public class MeleeAI : Character
         // moving timer before it changes direction
         movingDuration = Random.Range(1, 10);
         EnemySpriteRenderer = GetComponent<SpriteRenderer>();
-        FightorFlight();
     }
 
     public override void Initialize() //required for some fucking reason
@@ -116,15 +115,16 @@ public class MeleeAI : Character
                 ChangeBetweenIdleAndWanderState();
                 Wander();
             }
-            else if (Target != null  && fight == true && InMeleeRange)
+            else if (Target != null && InMeleeRange)
             {
-                MoveToPlayer();
-                //Attack();
-              
-            }
-            else if (Target != null && fight == false && InMeleeRange)
-            {
-                MoveAwayPlayer();
+                if (FightorFlight())
+                {
+                    MoveToPlayer();
+                }
+                else
+                {
+                    MoveAwayPlayer();
+                }
             }
         }
         else
@@ -313,18 +313,20 @@ public class MeleeAI : Character
         }
     }
 
-    public void FightorFlight()
+    public bool FightorFlight()
     {
         int fightorFlightint = Random.Range(0, 10);
             if (fightorFlightint >= 5)
             {
             fight = true;
+            Debug.Log("We should be running to player");
             }
             else
             {
             fight = false;
             Debug.Log("We should be running");
             }
+        return fight;
     }
 
     private void MoveToPlayer()

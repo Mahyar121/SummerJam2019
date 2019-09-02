@@ -705,22 +705,9 @@ MonoBehaviour:
   sneakyLevel: 0
   meleeRange: 5
   foodObject: {fileID: 3980911139516752254}
-  VFXClaw: {fileID: 8395197786045226849, guid: 855a431036b2dd248be8a5cf491fd7a9, type: 3}
   LeftClaw: {fileID: 583640443118028130, guid: 6994aafc0b863cd46bce76e6ca89ecef, type: 3}
   RightClaw: {fileID: 3610216726799820600, guid: d7666a2bc178b644082cfa151cdace10,
     type: 3}
-  VFXSpike: {fileID: 0}
-  SpikeObject: {fileID: 0}
-  SpikeProjectile: {fileID: 8401413485676846054, guid: 99373cb7cc5a8e3478e5d97e500406a7,
-    type: 3}
-  SpikeSpawnLocs:
-  - {fileID: 7025619471760527918, guid: dd3265b99e37f2e4dbfefd1ae0df208d, type: 3}
-  - {fileID: 5262219406529672481, guid: 30c9cdfaf9b7a864daaba8c674fd53e2, type: 3}
-  - {fileID: 7317351931369747861, guid: b6bea4371a34b2e4086a1386d5db77ad, type: 3}
-  - {fileID: 5452297124486435126, guid: 0e5ae2abfaef39a41adbd58c8ebccde0, type: 3}
-  - {fileID: 6764274819679152482, guid: eb6d66617d756c5409f6ef991144cee5, type: 3}
-  - {fileID: 312162722176698950, guid: b2b79940c74c9814c871459d7c03e8bc, type: 3}
-  - {fileID: 779672345108738444, guid: 036c0c82b79baf5408c128bd71f11fc1, type: 3}
 --- !u!114 &577816879968073931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,7 +932,7 @@ GameObject:
   - component: {fileID: 7655927476459907980}
   m_Layer: 0
   m_Name: VFX Claw Scratch
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5860,7 +5847,7 @@ GameObject:
   - component: {fileID: 7655927476811345670}
   m_Layer: 0
   m_Name: VFX Charge
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5984,7 +5971,7 @@ GameObject:
   - component: {fileID: 7655927476346024766}
   m_Layer: 0
   m_Name: VFX Spike
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6256,11 +6243,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 212643310709369976}
     m_Modifications:
-    - target: {fileID: 4369314130559519538, guid: 1c20124d7ed410a4486fc1b64f785d6c,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy Sight
-      objectReference: {fileID: 0}
     - target: {fileID: 4369314130559519539, guid: 1c20124d7ed410a4486fc1b64f785d6c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6315,6 +6297,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4369314130559519538, guid: 1c20124d7ed410a4486fc1b64f785d6c,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy Sight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c20124d7ed410a4486fc1b64f785d6c, type: 3}

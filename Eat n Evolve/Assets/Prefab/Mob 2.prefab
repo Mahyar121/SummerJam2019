@@ -701,7 +701,10 @@ MonoBehaviour:
   sneaky: 0
   sneakyLevel: 0
   meleeRange: 5
-  foodObject: {fileID: 0}
+  foodObject: {fileID: 784935670052931552, guid: 75f09915f2196174aa40aa2fbc800ddd,
+    type: 3}
+  LeftClaw: {fileID: 0}
+  RightClaw: {fileID: 0}
 --- !u!1 &212643310711659631
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,7 +917,7 @@ GameObject:
   - component: {fileID: 7655927476459907980}
   m_Layer: 0
   m_Name: VFX Claw Scratch
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5829,7 +5832,7 @@ GameObject:
   - component: {fileID: 7655927476811345670}
   m_Layer: 0
   m_Name: VFX Charge
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5953,7 +5956,7 @@ GameObject:
   - component: {fileID: 7655927476346024766}
   m_Layer: 0
   m_Name: VFX Spike
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
