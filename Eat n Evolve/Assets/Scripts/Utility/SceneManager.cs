@@ -56,16 +56,16 @@ public class SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // RandomizeZoneLocations();
+        //RandomizeZoneLocations();
         RandomizePlayerSpawn();
         RandomizeEnemySpawns();
-        //spawnCooldownTrue = true;
+        spawnCooldownTrue = true;
         Instance.EnemyCount = 0;
     }
 
     private void Update()
     {
-        //RespawnCooldown();
+        Respawn();
     }
 
     public void RandomizeZoneLocations()
@@ -115,7 +115,7 @@ public class SceneManager : MonoBehaviour
                 Instantiate(Scrashark, fishySpawn.transform);
                 Instance.EnemyCount++;
             }
-            //Instance.EnemyCount++;
+            Instance.EnemyCount++;
         }
 
         foreach (Transform sneakySpawn in sneakySpawns)
@@ -136,7 +136,7 @@ public class SceneManager : MonoBehaviour
                 Instantiate(Scrachthorn, sneakySpawn.transform);
                 Instance.EnemyCount++;
             }
-            //Instance.EnemyCount++;
+            Instance.EnemyCount++;
         }
 
         foreach (Transform generalEnemySpawn in generalEnemySpawns)
@@ -157,7 +157,7 @@ public class SceneManager : MonoBehaviour
                 Instantiate(Scrattach, generalEnemySpawn.transform);
                 Instance.EnemyCount++;
             }
-            //Instance.EnemyCount++;
+            Instance.EnemyCount++;
         }
 
     }
@@ -176,15 +176,23 @@ public class SceneManager : MonoBehaviour
     //            currentSpawnmingtime = 30;
     //            spawnCooldownTrue = false;
     //        }
-    //    }
+    //   }
     //    else if (Instance.EnemyCount <= 20 && !spawnCooldownTrue)
-    //    {
+    //   {
     //        RandomizeEnemySpawns();
     //        spawnCooldownTrue = true;
-    //    }
+    //   }
     //}
 
-    
+    private void Respawn()
+    {
+        if (Instance.EnemyCount <= 125)
+        {
+            RandomizeEnemySpawns();
+           
+        }
+    }
+
 
 
 }

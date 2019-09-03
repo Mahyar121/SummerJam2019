@@ -31,6 +31,8 @@ public class PlayerController : Character
     public GameObject LeftFoot;
     public GameObject RightFin;
     public GameObject LeftFin;
+    //Object for Sneaky
+    public GameObject Nose;
 
     //GameOverScreen
     public GameObject Gameover;
@@ -340,7 +342,7 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
                 //Instance.healthStat.CurrentHp -= .01f;
-                Instance.Health -= .01f;
+                Instance.Health -= .0025f * scoreCounter;
                 Instance.healthStat.CurrentHp = Instance.Health;
                 Death();
 
@@ -352,7 +354,7 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", true);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.Health -= .01f;
+                Instance.Health -= .0025f * scoreCounter;
                 Instance.healthStat.CurrentHp = Instance.Health;
                 Death();
             }
@@ -364,7 +366,7 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", false);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.Health -= .01f;
+                Instance.Health -= .0025f * scoreCounter;
                 Instance.healthStat.CurrentHp = Instance.Health;
                 Death();
             }
@@ -375,15 +377,16 @@ public class PlayerController : Character
                 MyAnimator.SetBool("FacingWest", false);
                 MyAnimator.SetBool("FacingEast", true);
                 MyAnimator.SetBool("IsIdle", false);
-                Instance.Health -= .01f;
+                Instance.Health -= .0025f * scoreCounter;
                 Instance.healthStat.CurrentHp = Instance.Health;
                 Death();
             }
         }
-        if (Input.GetKey(KeyCode.Q))
-        {
-            RandomCharacterTraitSelection();
-        }
+        //Debug change power
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    RandomCharacterTraitSelection();
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -436,6 +439,10 @@ public class PlayerController : Character
             if (Instance.FishyLevel > 0)
             {
                 GainFishyAssets();
+            }
+            if (Instance.SneakyLevel >0)
+            {
+                GainSneakyAsset();
             }
         }
     }
@@ -597,6 +604,11 @@ public class PlayerController : Character
 
     }
 
+    public void GainSneakyAsset()
+    {
+        Nose.SetActive(true);
+    }
+
     private void PlayerTraitLevelerHandler()
     {
         if (Instance.HasClaws == true && Instance.Claws >= epRequired && Instance.ClawsLevel != 3  )
@@ -613,9 +625,10 @@ public class PlayerController : Character
         if (Instance.Claws >= epRequired && Instance.ClawsLevel != 3)
         {
             Instance.Claws = 0;
-            Instance.clawsStat.CurrentStatValue = Instance.Claws;
-            InitializeStat(Instance.clawsStat, Instance.Claws);
+            //Instance.clawsStat.CurrentStatValue = Instance.Claws;
+            //InitializeStat(Instance.clawsStat, Instance.Claws);
             PlayerBecomesScratchy();
+            UpdateCharacterStats();
             scoreCounter = scoreCounter + 5;
             //Debug.Log("scoreincrease");
             SetCountText();
@@ -634,9 +647,10 @@ public class PlayerController : Character
         if (Instance.Horns >= epRequired && Instance.HornsLevel != 3)
         {
             Instance.Horns = 0;
-            Instance.hornsStat.CurrentStatValue = Instance.Horns;
-            InitializeStat(Instance.hornsStat, Instance.Horns);
+            //Instance.hornsStat.CurrentStatValue = Instance.Horns;
+            //InitializeStat(Instance.hornsStat, Instance.Horns);
             PlayerBecomesHorney();
+            UpdateCharacterStats();
             scoreCounter = scoreCounter + 5;
             //Debug.Log("scoreincrease");
             SetCountText();
@@ -655,9 +669,10 @@ public class PlayerController : Character
         if (Instance.Spike >= epRequired && Instance.SpikeLevel != 3)
         {
             Instance.Spike = 0;
-            Instance.spikeStat.CurrentStatValue = Instance.Spike;
-            InitializeStat(Instance.spikeStat, Instance.Spike);
+            //Instance.spikeStat.CurrentStatValue = Instance.Spike;
+            //InitializeStat(Instance.spikeStat, Instance.Spike);
             PlayerBecomesSpikey();
+            UpdateCharacterStats();
             scoreCounter = scoreCounter + 5;
             //Debug.Log("scoreincrease");
             SetCountText();
@@ -684,6 +699,7 @@ public class PlayerController : Character
             scoreCounter = scoreCounter + 5;
             Debug.Log("scoreincrease");
             SetCountText();
+            GainSneakyAsset();
         }
     }
 

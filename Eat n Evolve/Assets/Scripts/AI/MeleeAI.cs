@@ -334,7 +334,7 @@ public class MeleeAI : Character
          Debug.Log("Moving to");
             Vector3 directionOfCharacter = Target.transform.position - transform.position;
             directionOfCharacter = directionOfCharacter.normalized;
-            //Debug.Log(directionOfCharacter);
+           // Debug.Log(directionOfCharacter);
             MyRigidbody2D.AddForceAtPosition(directionOfCharacter, transform.position);
     }
 

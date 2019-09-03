@@ -52,6 +52,7 @@ public class FoodController : MonoBehaviour
 
             SceneManager.Instance.EnemyCount--;
             Destroy(transform.parent.gameObject);
+            Debug.Log("current count " + SceneManager.Instance.EnemyCount);
         }
     }
 
