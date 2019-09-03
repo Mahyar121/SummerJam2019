@@ -32,6 +32,9 @@ public class PlayerController : Character
     public GameObject RightFin;
     public GameObject LeftFin;
 
+    //GameOverScreen
+    public GameObject Gameover;
+
     //Score stuff
     public Text scoreText;  // public if you want to drag your text object in there manually
     int scoreCounter;
@@ -55,6 +58,10 @@ public class PlayerController : Character
 
     // character top down movement
     private Vector3 inputMovement;
+
+    //invulnflash
+    Color red;
+    Color initialcolor;
 
     // If player is immortal take no damage
     private bool immortal = false;
@@ -126,7 +133,7 @@ public class PlayerController : Character
 
     void SetCountText()
     {
-        scoreText.text = "Evolution Points: " + scoreCounter.ToString();
+        scoreText.text = "Evolution Score: " + scoreCounter.ToString();
     }
 
     // Put anything physics related that needs updating here
@@ -163,7 +170,7 @@ public class PlayerController : Character
         waterGameObjects = GameObject.FindGameObjectsWithTag("Water");
         bushGameObjects = GameObject.FindGameObjectsWithTag("Bush");
         //remove the fuck out of the lower line
-        GainFishyAssets();
+        //GainFishyAssets();
     }
 
     // Will handle the top down movement of the player
@@ -335,6 +342,7 @@ public class PlayerController : Character
                 //Instance.healthStat.CurrentHp -= .01f;
                 Instance.Health -= .01f;
                 Instance.healthStat.CurrentHp = Instance.Health;
+                Death();
 
             }
             if (Input.GetKey(KeyCode.A))
@@ -346,6 +354,7 @@ public class PlayerController : Character
                 MyAnimator.SetBool("IsIdle", false);
                 Instance.Health -= .01f;
                 Instance.healthStat.CurrentHp = Instance.Health;
+                Death();
             }
 
             if (Input.GetKey(KeyCode.S))
@@ -357,6 +366,7 @@ public class PlayerController : Character
                 MyAnimator.SetBool("IsIdle", false);
                 Instance.Health -= .01f;
                 Instance.healthStat.CurrentHp = Instance.Health;
+                Death();
             }
             if (Input.GetKey(KeyCode.D))
             {
@@ -367,6 +377,7 @@ public class PlayerController : Character
                 MyAnimator.SetBool("IsIdle", false);
                 Instance.Health -= .01f;
                 Instance.healthStat.CurrentHp = Instance.Health;
+                Death();
             }
         }
         if (Input.GetKey(KeyCode.Q))
@@ -391,6 +402,7 @@ public class PlayerController : Character
     {
         if (Instance.Health <= 0)
         {
+            Gameover.SetActive(true);
             Initialize();
             if (Instance.FishyLevel > 0 && Instance.IsFishy == true)
             {
@@ -413,6 +425,7 @@ public class PlayerController : Character
 
     private IEnumerator IndicateImmortal()
     {
+        
         //This is resetting the fishy feet
         while (immortal)
         {
@@ -420,6 +433,10 @@ public class PlayerController : Character
             yield return new WaitForSeconds(.1f);
             foreach (SpriteRenderer sprite in MySpriteRenderers) { sprite.enabled = true; }
             yield return new WaitForSeconds(.1f);
+            if (Instance.FishyLevel > 0)
+            {
+                GainFishyAssets();
+            }
         }
     }
 
